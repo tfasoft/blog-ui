@@ -1,3 +1,4 @@
+import {useHistory} from "react-router-dom";
 import {
     AppBar,
     Toolbar,
@@ -6,7 +7,9 @@ import {
     Box,
 } from "@mui/material";
 
-const Navbar = (props) => {
+const Navbar = () => {
+    const history = useHistory();
+
     return (
         <Box>
             <AppBar
@@ -16,6 +19,10 @@ const Navbar = (props) => {
                     <Toolbar>
                         <Typography
                             variant="h6"
+                            onClick={() => history.push('/')}
+                            sx={{
+                                cursor: "pointer",
+                            }}
                         >
                             TFASoft Blog
                         </Typography>
