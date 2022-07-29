@@ -1,6 +1,7 @@
 import {
     Container,
     Grid,
+    CircularProgress, Box,
 } from "@mui/material";
 
 import Axios from "axios";
@@ -9,7 +10,7 @@ import {useState, useEffect} from "react";
 import BlogItem from "../components/blogitem";
 
 const BlogsPage = () => {
-    const [blogs, setBlogs] = useState([]);
+    const [blogs, setBlogs] = useState(false);
 
     useEffect(() => {
         Axios.get('http://localhost:8000/blogs/all')
@@ -27,25 +28,37 @@ const BlogsPage = () => {
                 pt: "1rem",
             }}
         >
-            <Grid
-                spacing={3}
-                container
-            >
-                {
-                    blogs.map((blog) => {
-                        return (
-                            <Grid
-                                md={4}
-                                sm={6}
-                                xs={12}
-                                item
-                            >
-                                <BlogItem blog={blog} />
-                            </Grid>
-                        );
-                    })
-                }
-            </Grid>
+            {
+                blogs
+                ?
+                    <Box>
+                        <Grid
+                            spacing={3}
+                            container
+                        >
+                            {
+                                blogs.map((blog) => {
+                                    return (
+                                        <Grid
+                                            md={4}
+                                            sm={6}
+                                            xs={12}
+                                            item
+                                        >
+                                            <BlogItem blog={blog} />
+                                        </Grid>
+                                    );
+                                })
+                            }
+                        </Grid>
+                    </Box>
+                :
+                    <Box
+                        sx={{ textAlign: "center" }}
+                    >
+                        <CircularProgress />
+                    </Box>
+            }
         </Container>
     );
 }
