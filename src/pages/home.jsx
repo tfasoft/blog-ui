@@ -8,7 +8,8 @@ const HomePage = () => {
     return (
         <Container
             sx={{
-                pt: "1rem",
+                mt: "1rem",
+                mb: "1rem",
             }}
         >
             <Box>
