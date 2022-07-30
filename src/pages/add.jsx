@@ -38,7 +38,8 @@ const AddBlogPage = () => {
         <Container
             maxWidth="md"
             sx={{
-                pt: "1rem",
+                mt: "1rem",
+                mb: "1rem",
             }}
         >
             <Card
