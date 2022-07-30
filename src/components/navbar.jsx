@@ -55,7 +55,7 @@ const Navbar = () => {
                 createSnack('Posted successfully', 'success');
             })
             .catch((error) => {
-                console.log(error);
+                createSnack('Sorry, an error', 'error');
             })
     }
 
