@@ -1,10 +1,8 @@
 import {
     Card,
-    CardHeader,
     CardContent,
-    Button,
     Typography,
-    CardActions,
+    Box,
 } from "@mui/material";
 
 import {useHistory} from "react-router-dom";
@@ -16,25 +14,31 @@ const BlogItem = (props) => {
     return (
         <Card
             variant="outlined"
+            sx={{ borderColor: "white", borderRadius: 5 }}
         >
-            <CardHeader
-                title={blog.title}
-                sx={{
-                    color: "primary.main"
-                }}
-            />
             <CardContent>
-                <Typography>
+                <Box
+                    component="img"
+                    alt="Image"
+                    sx={{ width: "100%", borderRadius: 5, cursor: "pointer" }}
+                    onClick={() => history.push(`/blog/${blog._id}`)}
+                    src="https://images.prismic.io/www-static/3d094db1-bb3f-429d-8f13-5d16e3b39b68_Blog.png"
+                />
+                <Typography
+                    variant="h4"
+                    sx={{ color: "primary.main" }}
+                    gutterBottom
+                >
+                    {blog.title}
+                </Typography>
+                <Typography
+                    color="text.secondary"
+                    gutterBottom
+                    paragraph
+                >
                     {blog.content}
                 </Typography>
             </CardContent>
-            <CardActions>
-                <Button
-                    onClick={() => history.push(`/blog/${blog._id}`)}
-                >
-                    Read this blog
-                </Button>
-            </CardActions>
         </Card>
     );
 }
