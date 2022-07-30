@@ -96,23 +96,38 @@ const Navbar = () => {
             onClick={() => setDrawerOpen(!drawerOpen)}
             sx={{
                 textAlign: 'center',
-                border: 'none',
-                borderTopRightRadius: 5,
-                borderBottomRightRadius: 5,
             }}
         >
-            <Typography variant="h6" sx={{ my: 2 }}>
+            <Typography
+                variant="h6"
+                onClick={() => history.push('/')}
+                sx={{
+                    cursor: "pointer",
+                    my: 2,
+                }}
+            >
                 TFASoft Blog
             </Typography>
             <Divider />
             <List>
-                {navItems.map((item) => (
-                    <ListItem key={item} disablePadding>
-                        <ListItemButton sx={{ textAlign: 'center' }}>
-                            <ListItemText primary={item} />
+                <ListItem disablePadding>
+                    <ListItemButton
+                        onClick={() => session ? setDialogOpen(true) : history.push('/auth')}
+                    >
+                        <ListItemText primary={ session ? "Add a new blog" : "Login" } />
+                    </ListItemButton>
+                </ListItem>
+                {
+                    session
+                    &&
+                    <ListItem disablePadding>
+                        <ListItemButton
+                            onClick={() => history.push('/panel')}
+                        >
+                            <ListItemText primary="Panel" />
                         </ListItemButton>
                     </ListItem>
-                ))}
+                }
             </List>
         </Box>
     );
@@ -141,7 +156,6 @@ const Navbar = () => {
                             sx={{
                                 cursor: "pointer",
                                 flexGrow: 1,
-                                // display: { xs: 'none', sm: 'block' }
                             }}
                         >
                             TFASoft Blog
@@ -173,9 +187,6 @@ const Navbar = () => {
                         <IconButton
                             color="inherit"
                             onClick={() => dispatch(setTheme(theme === 'light' ? 'dark' : 'light'))}
-                            // sx={{
-                            //     color: "white"
-                            // }}
                         >
                             { theme === 'light' ? <DarkMode /> : <LightMode />}
                         </IconButton>
@@ -183,7 +194,9 @@ const Navbar = () => {
                 </Container>
             </AppBar>
 
-            <Box component="nav">
+            <Box
+                component="nav"
+            >
                 <Drawer
                     variant="temporary"
                     open={drawerOpen}
@@ -193,10 +206,17 @@ const Navbar = () => {
                     }}
                     sx={{
                         display: { xs: 'block', sm: 'none' },
-                        '& .MuiDrawer-paper': { boxSizing: 'border-box', width: 240 },
+                        '& .MuiDrawer-paper': {
+                            boxSizing: 'border-box',
+                            width: 240,
+                            borderTopRightRadius: 10,
+                            borderBottomRightRadius: 10,
+                        },
                     }}
                 >
-                    {drawer}
+                    <Box>
+                        {drawer}
+                    </Box>
                 </Drawer>
             </Box>
 
