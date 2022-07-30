@@ -14,7 +14,7 @@ const BlogItem = (props) => {
     return (
         <Card
             variant="outlined"
-            sx={{ borderColor: "white", borderRadius: 5 }}
+            sx={{ borderColor: "none", borderRadius: 5 }}
         >
             <CardContent>
                 <Box
