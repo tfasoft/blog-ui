@@ -1,4 +1,5 @@
 import {useState} from "react";
+import {useSelector} from "react-redux";
 
 import {
     Container,
@@ -8,7 +9,6 @@ import {
     CardContent,
     TextField,
     Button,
-    Toolbar,
 } from "@mui/material";
 
 import Axios from "axios";
@@ -16,6 +16,8 @@ import Axios from "axios";
 const AuthenticationPage = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+
+    const theme = useSelector(state => state.theme);
 
     const login = () => {
         Axios.post();
@@ -29,8 +31,7 @@ const AuthenticationPage = () => {
                 justifyContent: "center",
                 alignItems: "center",
                 height: "100vh",
-                color: 'white',
-                background: `linear-gradient(to bottom, #071e4e 50%, #f8f4fc 50%)`,
+                background: `linear-gradient(to bottom, ${ theme === "light" ? "#071e4e" : "#222" } 50%, ${ theme === "light" ? "#f8f4fc" : "#333" } 50%)`,
             }}
         >
             <Container
