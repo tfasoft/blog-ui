@@ -3,6 +3,8 @@ import {useParams} from "react-router-dom";
 
 import Axios from "axios";
 
+import { Parser } from 'html-to-react';
+
 import {
     Container,
     Box,
@@ -12,7 +14,12 @@ import {
     Grid,
     Divider,
     CircularProgress,
+    Button,
 } from "@mui/material";
+
+import {
+    Delete
+} from "@mui/icons-material";
 
 const BlogPage = () => {
     let {blog_id} = useParams();
@@ -47,7 +54,7 @@ const BlogPage = () => {
                     >
                         <Grid
                             md={9}
-                            sm={6}
+                            sm={8}
                             xs={12}
                             item
                         >
@@ -58,7 +65,8 @@ const BlogPage = () => {
                                 <CardContent>
                                     <Typography
                                         variant="h3"
-                                        sx={{ cursor: "pointer", color: "primary.main" }}
+                                        fontWeight="bold"
+                                        sx={{ color: "primary.main" }}
                                         gutterBottom
                                     >
                                         {blog.title}
@@ -74,19 +82,17 @@ const BlogPage = () => {
                                         <br />
                                         <br />
                                     </Box>
-                                    <Typography
+                                    <Box
                                         color="text.secondary"
-                                        paragraph
-                                        gutterBottom
                                     >
-                                        {blog.content}
-                                    </Typography>
+                                        {Parser().parse(blog.content)}
+                                    </Box>
                                 </CardContent>
                             </Card>
                         </Grid>
                         <Grid
                             md={3}
-                            sm={6}
+                            sm={4}
                             xs={12}
                             item
                         >
@@ -129,6 +135,30 @@ const BlogPage = () => {
                                         >
                                             {blog.createdAt}
                                         </Typography>
+                                    </Box>
+                                    <Box>
+                                        <br />
+                                        <Divider sx={{ borderColor: "error.main" }} />
+                                        <br />
+                                    </Box>
+                                    <Box>
+                                        <Typography
+                                            variant="h5"
+                                            sx={{ color: "error.main" }}
+                                            gutterBottom
+                                        >
+                                            Danger zone
+                                        </Typography>
+                                        {/*<br />*/}
+                                        <Button
+                                            variant="contained"
+                                            color="error"
+                                            startIcon={<Delete />}
+                                            disableElevation
+                                            fullWidth
+                                        >
+                                            Delete blog
+                                        </Button>
                                     </Box>
                                 </CardContent>
                             </Card>
