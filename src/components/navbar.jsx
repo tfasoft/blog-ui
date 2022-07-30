@@ -13,6 +13,8 @@ import {
     DialogContent,
     DialogContentText,
     TextField,
+    Alert,
+    Snackbar,
 } from "@mui/material";
 
 import Axios from "axios";
@@ -26,6 +28,16 @@ const Navbar = () => {
     const [short, setShort] = useState('');
     const [content, setContent] = useState('');
 
+    const [snackOpen, setSnackOpen] = useState(false);
+    const [snackTitle, setSnackTitle] = useState('');
+    const [snackType, setSnackType] = useState('');
+    const createSnack = (title, type) => {
+        setSnackTitle(title);
+        setSnackType(type);
+
+        setSnackOpen(true);
+    }
+
     const addBlog = () => {
         const data = {
             title,
@@ -36,7 +48,11 @@ const Navbar = () => {
 
         Axios.post(`http://localhost:8000/blogs/add`, data)
             .then((result) => {
-                history.push(`/blog/${result.data.id}`);
+                setTitle('');
+                setShort('');
+                setContent('');
+
+                createSnack('Posted successfully', 'success');
             })
             .catch((error) => {
                 console.log(error);
@@ -134,6 +150,12 @@ const Navbar = () => {
                     </Button>
                 </DialogActions>
             </Dialog>
+
+            <Snackbar open={snackOpen} autoHideDuration={6000} onClose={() => setSnackOpen(false)}>
+                <Alert onClose={() => setSnackOpen(false)} severity={snackType}>
+                    {snackTitle}
+                </Alert>
+            </Snackbar>
         </Box>
     );
 }
