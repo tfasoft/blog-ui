@@ -109,7 +109,6 @@ const Navbar = () => {
                     </Toolbar>
                 </Container>
             </AppBar>
-            <Toolbar />
 
             <Dialog
                 open={dialogOpen}
