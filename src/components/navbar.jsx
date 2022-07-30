@@ -33,6 +33,7 @@ const Navbar = () => {
     const dispatch = useDispatch();
 
     const theme = useSelector(state => state.theme);
+    const session = useSelector(state => state.session);
 
     const [dialogOpen, setDialogOpen] = useState(false);
 
@@ -90,12 +91,12 @@ const Navbar = () => {
                         </Typography>
                         <Button
                             variant="text"
-                            onClick={() => setDialogOpen(true)}
+                            onClick={() => session ? setDialogOpen(true) : history.push('/auth')}
                             sx={{
                                 color: "white"
                             }}
                         >
-                            Add a new blog
+                            { session ? "Add a new blog" : "Login" }
                         </Button>
                         <IconButton
                             variant="text"
