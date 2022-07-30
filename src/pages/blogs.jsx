@@ -1,7 +1,9 @@
 import {
     Container,
     Grid,
-    CircularProgress, Box,
+    CircularProgress,
+    Box,
+    Typography,
 } from "@mui/material";
 
 import Axios from "axios";
@@ -25,13 +27,22 @@ const BlogsPage = () => {
     return (
         <Container
             sx={{
-                pt: "1rem",
+                mt: "5rem",
+                mb: "1rem",
             }}
         >
             {
                 blogs
                 ?
                     <Box>
+                        <Typography
+                            variant="h2"
+                            fontWeight="bold"
+                            sx={{ color: "primary.main" }}
+                            gutterBottom
+                        >
+                            Featured posts
+                        </Typography>
                         <Grid
                             spacing={3}
                             container
