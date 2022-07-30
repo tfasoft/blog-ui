@@ -36,7 +36,7 @@ const BlogItem = (props) => {
                     gutterBottom
                     paragraph
                 >
-                    {blog.content}
+                    {blog.short}
                 </Typography>
             </CardContent>
         </Card>
