@@ -21,6 +21,7 @@ import {
     List,
     ListItem,
     ListItemText,
+    ListItemIcon,
     ListItemButton,
     Divider,
     Drawer
@@ -30,18 +31,18 @@ import {
     DarkMode,
     LightMode,
     Menu,
+    Logout,
+    Login,
+    Dashboard,
+    PostAdd,
 } from "@mui/icons-material";
 
 import Axios from "axios";
 
 import {setTheme} from "../redux/actions/theme";
-
-const navItems = [
-    'Show some love to MUI',
-    'Show all notification content',
-    'Hide sensitive notification content',
-    'Hide all notification content',
-];
+import {logoutUser} from "../redux/actions/session";
+import {unsetUID} from "../redux/actions/uid";
+import {deleteUser} from "../redux/actions/user";
 
 const Navbar = () => {
     const history = useHistory();
@@ -110,13 +111,20 @@ const Navbar = () => {
             </Typography>
             <Divider />
             <List>
-                <ListItem disablePadding>
-                    <ListItemButton
-                        onClick={() => session ? setDialogOpen(true) : history.push('/auth')}
-                    >
-                        <ListItemText primary={ session ? "Add a new blog" : "Login" } />
-                    </ListItemButton>
-                </ListItem>
+                {
+                    session
+                    &&
+                    <ListItem disablePadding>
+                        <ListItemButton
+                            onClick={() => setDialogOpen(true)}
+                        >
+                            <ListItemIcon>
+                                <PostAdd />
+                            </ListItemIcon>
+                            <ListItemText primary="Add a new blog" />
+                        </ListItemButton>
+                    </ListItem>
+                }
                 {
                     session
                     &&
@@ -124,9 +132,41 @@ const Navbar = () => {
                         <ListItemButton
                             onClick={() => history.push('/panel')}
                         >
+                            <ListItemIcon>
+                                <Dashboard />
+                            </ListItemIcon>
                             <ListItemText primary="Panel" />
                         </ListItemButton>
                     </ListItem>
+                }
+                {
+                    session
+                    ?
+                        <ListItem disablePadding>
+                            <ListItemButton
+                                onClick={() => {
+                                    dispatch(logoutUser());
+                                    dispatch(unsetUID());
+                                    dispatch(deleteUser());
+                                }}
+                            >
+                                <ListItemIcon>
+                                    <Logout />
+                                </ListItemIcon>
+                                <ListItemText primary="Logout" />
+                            </ListItemButton>
+                        </ListItem>
+                    :
+                        <ListItem disablePadding>
+                            <ListItemButton
+                                onClick={() => history.push('/auth')}
+                            >
+                                <ListItemIcon>
+                                    <Login />
+                                </ListItemIcon>
+                                <ListItemText primary="Logim" />
+                            </ListItemButton>
+                        </ListItem>
                 }
             </List>
         </Box>
@@ -145,7 +185,6 @@ const Navbar = () => {
                             sx={{
                                 mr: 2,
                                 display: { sm: 'none' },
-                                // flexGrow: 1,
                             }}
                         >
                             <Menu />
@@ -161,15 +200,19 @@ const Navbar = () => {
                             TFASoft Blog
                         </Typography>
                         <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
-                            <Button
-                                variant="text"
-                                onClick={() => session ? setDialogOpen(true) : history.push('/auth')}
-                                sx={{
-                                    color: "white"
-                                }}
-                            >
-                                { session ? "Add a new blog" : "Login" }
-                            </Button>
+                            {
+                                session
+                                &&
+                                <Button
+                                    variant="text"
+                                    onClick={() => setDialogOpen(true)}
+                                    sx={{
+                                        color: "white"
+                                    }}
+                                >
+                                    Add a new blog
+                                </Button>
+                            }
                             {
                                 session
                                 &&
@@ -182,6 +225,33 @@ const Navbar = () => {
                                 >
                                     Panel
                                 </Button>
+                            }
+                            {
+                                session
+                                ?
+                                    <Button
+                                        variant="text"
+                                        onClick={() => {
+                                            dispatch(logoutUser());
+                                            dispatch(unsetUID());
+                                            dispatch(deleteUser());
+                                        }}
+                                        sx={{
+                                            color: "white"
+                                        }}
+                                    >
+                                        Logout
+                                    </Button>
+                                :
+                                    <Button
+                                        variant="text"
+                                        onClick={() => history.push('/auth')}
+                                        sx={{
+                                            color: "white"
+                                        }}
+                                    >
+                                        Login
+                                    </Button>
                             }
                         </Box>
                         <IconButton
@@ -209,8 +279,8 @@ const Navbar = () => {
                         '& .MuiDrawer-paper': {
                             boxSizing: 'border-box',
                             width: 240,
-                            borderTopRightRadius: 10,
-                            borderBottomRightRadius: 10,
+                            borderTopRightRadius: 20,
+                            borderBottomRightRadius: 20,
                         },
                     }}
                 >
