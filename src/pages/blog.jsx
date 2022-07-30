@@ -1,5 +1,5 @@
 import {useState, useEffect} from "react";
-import {useParams} from "react-router-dom";
+import {useParams, useHistory} from "react-router-dom";
 
 import Axios from "axios";
 
@@ -15,6 +15,8 @@ import {
     Divider,
     CircularProgress,
     Button,
+    Alert,
+    Snackbar
 } from "@mui/material";
 
 import {
@@ -22,7 +24,18 @@ import {
 } from "@mui/icons-material";
 
 const BlogPage = () => {
+    const history = useHistory();
     let {blog_id} = useParams();
+
+    const [snackOpen, setSnackOpen] = useState(false);
+    const [snackTitle, setSnackTitle] = useState('');
+    const [snackType, setSnackType] = useState('');
+    const createSnack = (title, type) => {
+        setSnackTitle(title);
+        setSnackType(type);
+
+        setSnackOpen(true);
+    }
 
     const [blog, setBlog] = useState(false);
 
@@ -30,13 +43,24 @@ const BlogPage = () => {
         Axios.get(`http://localhost:8000/blogs/get/${blog_id}`)
             .then((result) => {
                 setBlog(result.data.blog);
+
+                createSnack('Post loaded', 'info');
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }, []);
+
+    const deleteBlog = () => {
+        Axios.post(`http://localhost:8000/blogs/delete/${blog_id}`)
+            .then((result) => {
+                createSnack('Post deleted', 'success');
+                history.push('/blogs');
             })
             .catch((error) => {
                 console.log(error);
             })
-    }, []);
-
-    console.log(blog)
+    }
 
     return (
         <Container
@@ -76,7 +100,7 @@ const BlogPage = () => {
                                         <Box
                                             component="img"
                                             alt="Image"
-                                            sx={{ width: "100%", borderRadius: 5, cursor: "pointer" }}
+                                            sx={{ width: "100%", borderRadius: 5 }}
                                             src="https://images.prismic.io/www-static/3d094db1-bb3f-429d-8f13-5d16e3b39b68_Blog.png"
                                         />
                                         <br />
@@ -149,11 +173,11 @@ const BlogPage = () => {
                                         >
                                             Danger zone
                                         </Typography>
-                                        {/*<br />*/}
                                         <Button
                                             variant="contained"
                                             color="error"
                                             startIcon={<Delete />}
+                                            onClick={() => deleteBlog()}
                                             disableElevation
                                             fullWidth
                                         >
@@ -171,6 +195,12 @@ const BlogPage = () => {
                         <CircularProgress />
                     </Box>
             }
+
+            <Snackbar open={snackOpen} autoHideDuration={6000} onClose={() => setSnackOpen(false)}>
+                <Alert onClose={() => setSnackOpen(false)} severity={snackType}>
+                    {snackTitle}
+                </Alert>
+            </Snackbar>
         </Container>
     );
 }
