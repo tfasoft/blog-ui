@@ -1,5 +1,7 @@
 import {useState} from "react";
 import {useHistory} from "react-router-dom";
+import {useSelector, useDispatch} from "react-redux";
+
 import {
     AppBar,
     Toolbar,
@@ -7,6 +9,7 @@ import {
     Typography,
     Box,
     Button,
+    IconButton,
     Dialog,
     DialogTitle,
     DialogActions,
@@ -17,10 +20,19 @@ import {
     Snackbar,
 } from "@mui/material";
 
+import {
+    DarkMode,
+    LightMode,
+} from "@mui/icons-material";
+
 import Axios from "axios";
+import {setTheme} from "../redux/actions/theme";
 
 const Navbar = () => {
     const history = useHistory();
+    const dispatch = useDispatch();
+
+    const theme = useSelector(state => state.theme);
 
     const [dialogOpen, setDialogOpen] = useState(false);
 
@@ -85,6 +97,15 @@ const Navbar = () => {
                         >
                             Add a new blog
                         </Button>
+                        <IconButton
+                            variant="text"
+                            onClick={() => dispatch(setTheme(theme === 'light' ? 'dark' : 'light'))}
+                            sx={{
+                                color: "white"
+                            }}
+                        >
+                            { theme === 'light' ? <DarkMode /> : <LightMode />}
+                        </IconButton>
                     </Toolbar>
                 </Container>
             </AppBar>
