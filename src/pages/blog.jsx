@@ -6,7 +6,10 @@ import Axios from "axios";
 import {
     Container,
     Box,
+    Card,
+    CardContent,
     Typography,
+    Grid,
     Divider,
     CircularProgress,
 } from "@mui/material";
@@ -26,36 +29,111 @@ const BlogPage = () => {
             })
     }, []);
 
+    console.log(blog)
+
     return (
         <Container
-            maxWidth="md"
             sx={{
-                pt: "1rem",
+                mt: "1rem",
+                mb: "1rem",
             }}
         >
             {
                 blog
                 ?
-                    <Box>
-                        <Typography
-                            variant="h4"
-                            color="primary"
-                            gutterBottom
+                    <Grid
+                        spacing={2}
+                        container
+                    >
+                        <Grid
+                            md={9}
+                            sm={6}
+                            xs={12}
+                            item
                         >
-                            {blog.title}
-                        </Typography>
-                        <Typography
-                            paragraph
-                            gutterBottom
+                            <Card
+                                variant="outlined"
+                                sx={{ borderColor: "white", borderRadius: 5 }}
+                            >
+                                <CardContent>
+                                    <Typography
+                                        variant="h3"
+                                        sx={{ cursor: "pointer", color: "primary.main" }}
+                                        gutterBottom
+                                    >
+                                        {blog.title}
+                                    </Typography>
+                                    <Box>
+                                        <br />
+                                        <Box
+                                            component="img"
+                                            alt="Image"
+                                            sx={{ width: "100%", borderRadius: 5, cursor: "pointer" }}
+                                            src="https://images.prismic.io/www-static/3d094db1-bb3f-429d-8f13-5d16e3b39b68_Blog.png"
+                                        />
+                                        <br />
+                                        <br />
+                                    </Box>
+                                    <Typography
+                                        color="text.secondary"
+                                        paragraph
+                                        gutterBottom
+                                    >
+                                        {blog.content}
+                                    </Typography>
+                                </CardContent>
+                            </Card>
+                        </Grid>
+                        <Grid
+                            md={3}
+                            sm={6}
+                            xs={12}
+                            item
                         >
-                            {blog.content}
-                        </Typography>
-                        <Divider />
-                        <br />
-                        <Typography>
-                            Author: {blog.author}
-                        </Typography>
-                    </Box>
+                            <Card
+                                variant="outlined"
+                                sx={{ borderColor: "white", borderRadius: 5 }}
+                            >
+                                <CardContent>
+                                    <Box>
+                                        <Typography
+                                            variant="h5"
+                                            sx={{ color: "primary.main" }}
+                                            gutterBottom
+                                        >
+                                            Author
+                                        </Typography>
+                                        <Typography
+                                            color="text.secondary"
+                                            gutterBottom
+                                        >
+                                            {blog.author}
+                                        </Typography>
+                                    </Box>
+                                    <Box>
+                                        <br />
+                                        <Divider sx={{ borderColor: "primary.main" }} />
+                                        <br />
+                                    </Box>
+                                    <Box>
+                                        <Typography
+                                            variant="h5"
+                                            sx={{ color: "primary.main" }}
+                                            gutterBottom
+                                        >
+                                            Posted at
+                                        </Typography>
+                                        <Typography
+                                            color="text.secondary"
+                                            gutterBottom
+                                        >
+                                            {blog.createdAt}
+                                        </Typography>
+                                    </Box>
+                                </CardContent>
+                            </Card>
+                        </Grid>
+                    </Grid>
                 :
                     <Box
                         sx={{ textAlign: "center" }}
