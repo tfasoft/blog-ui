@@ -3,7 +3,7 @@ import {
     Grid,
     CircularProgress,
     Box,
-    Typography,
+    Typography, Toolbar,
 } from "@mui/material";
 
 import Axios from "axios";
@@ -31,6 +31,7 @@ const BlogsPage = () => {
                 mb: "1rem",
             }}
         >
+            <Toolbar />
             {
                 blogs
                 ?
