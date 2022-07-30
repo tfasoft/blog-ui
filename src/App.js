@@ -12,8 +12,11 @@ import AddBlogPage from "./pages/add";
 function App() {
     const theme = createTheme({
         palette: {
+            background: {
+                default: "#f8f4fc",
+            },
             primary: {
-                main: Colors.red[900],
+                main: "#071e4e",
             },
         },
     });
