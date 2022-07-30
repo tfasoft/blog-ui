@@ -9,13 +9,17 @@ import BlogsPage from "./pages/blogs";
 import HomePage from "./pages/home";
 
 function App() {
+    const mode = "dark";
+
     const theme = createTheme({
         palette: {
+            mode: mode,
             background: {
-                default: "#f8f4fc",
+                default: mode === "light" ? "#f8f4fc" : "#333",
+                paper: mode === "light" ? "#fff" : "#222",
             },
             primary: {
-                main: "#071e4e",
+                main: mode === "light" ? "#071e4e" : "#fff",
             },
         },
     });
