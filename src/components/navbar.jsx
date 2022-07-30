@@ -164,7 +164,7 @@ const Navbar = () => {
                                 <ListItemIcon>
                                     <Login />
                                 </ListItemIcon>
-                                <ListItemText primary="Logim" />
+                                <ListItemText primary="Login" />
                             </ListItemButton>
                         </ListItem>
                 }
