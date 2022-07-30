@@ -99,6 +99,13 @@ const BlogPage = () => {
                                     >
                                         {blog.title}
                                     </Typography>
+                                    <Typography
+                                        color="text.secondary"
+                                        gutterBottom
+                                        paragraph
+                                    >
+                                        {blog.short}
+                                    </Typography>
                                     <Box>
                                         <br />
                                         <Box
