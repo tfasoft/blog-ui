@@ -1,5 +1,7 @@
 import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
-import {ThemeProvider, createTheme, CssBaseline, colors as Colors} from "@mui/material";
+import {ThemeProvider, createTheme, CssBaseline} from "@mui/material";
+
+import {useSelector} from "react-redux";
 
 import Navbar from "./components/navbar";
 
@@ -9,7 +11,7 @@ import BlogsPage from "./pages/blogs";
 import HomePage from "./pages/home";
 
 function App() {
-    const mode = "dark";
+    const mode = useSelector(state => state.theme);
 
     const theme = createTheme({
         palette: {
