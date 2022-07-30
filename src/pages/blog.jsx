@@ -1,5 +1,6 @@
 import {useState, useEffect} from "react";
 import {useParams, useHistory} from "react-router-dom";
+import {useSelector} from "react-redux";
 
 import Axios from "axios";
 
@@ -26,6 +27,8 @@ import {
 const BlogPage = () => {
     const history = useHistory();
     let {blog_id} = useParams();
+
+    const session = useSelector(state => state.session);
 
     const [snackOpen, setSnackOpen] = useState(false);
     const [snackTitle, setSnackTitle] = useState('');
@@ -161,30 +164,36 @@ const BlogPage = () => {
                                             {blog.createdAt}
                                         </Typography>
                                     </Box>
-                                    <Box>
-                                        <br />
-                                        <Divider sx={{ borderColor: "error.main" }} />
-                                        <br />
-                                    </Box>
-                                    <Box>
-                                        <Typography
-                                            variant="h5"
-                                            sx={{ color: "error.main" }}
-                                            gutterBottom
-                                        >
-                                            Danger zone
-                                        </Typography>
-                                        <Button
-                                            variant="contained"
-                                            color="error"
-                                            startIcon={<Delete />}
-                                            onClick={() => deleteBlog()}
-                                            disableElevation
-                                            fullWidth
-                                        >
-                                            Delete blog
-                                        </Button>
-                                    </Box>
+                                    {
+                                        session
+                                        &&
+                                        <Box>
+                                            <Box>
+                                                <br />
+                                                <Divider sx={{ borderColor: "error.main" }} />
+                                                <br />
+                                            </Box>
+                                            <Box>
+                                                <Typography
+                                                    variant="h5"
+                                                    sx={{ color: "error.main" }}
+                                                    gutterBottom
+                                                >
+                                                    Danger zone
+                                                </Typography>
+                                                <Button
+                                                    variant="contained"
+                                                    color="error"
+                                                    startIcon={<Delete />}
+                                                    onClick={() => deleteBlog()}
+                                                    disableElevation
+                                                    fullWidth
+                                                >
+                                                    Delete blog
+                                                </Button>
+                                            </Box>
+                                        </Box>
+                                    }
                                 </CardContent>
                             </Card>
                         </Grid>
