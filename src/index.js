@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 
-import { createStore } from "redux";
-import { Provider } from "react-redux";
+import {createStore} from "redux";
+import {Provider} from "react-redux";
 
 import allReducers from "./redux/reducers";
 
-import { loadState, saveState } from "./redux/storage/localstore";
+import {loadState, saveState} from "./redux/storage/localstore";
 
 import App from './App';
 import "./App.sass";
@@ -30,6 +30,6 @@ store.subscribe(() => saveState({
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <Provider store={store}>
-        <App />
+        <App/>
     </Provider>
 );
