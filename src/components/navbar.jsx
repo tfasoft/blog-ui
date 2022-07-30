@@ -21,19 +21,22 @@ import {
     List,
     ListItem,
     ListItemText,
-    Menu,
-    MenuItem
+    ListItemButton,
+    Divider,
+    Drawer
 } from "@mui/material";
 
 import {
     DarkMode,
     LightMode,
+    Menu,
 } from "@mui/icons-material";
 
 import Axios from "axios";
+
 import {setTheme} from "../redux/actions/theme";
 
-const options = [
+const navItems = [
     'Show some love to MUI',
     'Show all notification content',
     'Hide sensitive notification content',
@@ -50,7 +53,7 @@ const Navbar = () => {
     const author = useSelector(state => state.user);
 
     const [dialogOpen, setDialogOpen] = useState(false);
-    const [menuOpen, setMenuOpen] = useState(false);
+    const [drawerOpen, setDrawerOpen] = useState(false);
 
     const [title, setTitle] = useState('');
     const [short, setShort] = useState('');
@@ -88,6 +91,32 @@ const Navbar = () => {
             })
     }
 
+    const drawer = (
+        <Box
+            onClick={() => setDrawerOpen(!drawerOpen)}
+            sx={{
+                textAlign: 'center',
+                border: 'none',
+                borderTopRightRadius: 5,
+                borderBottomRightRadius: 5,
+            }}
+        >
+            <Typography variant="h6" sx={{ my: 2 }}>
+                TFASoft Blog
+            </Typography>
+            <Divider />
+            <List>
+                {navItems.map((item) => (
+                    <ListItem key={item} disablePadding>
+                        <ListItemButton sx={{ textAlign: 'center' }}>
+                            <ListItemText primary={item} />
+                        </ListItemButton>
+                    </ListItem>
+                ))}
+            </List>
+        </Box>
+    );
+
     return (
         <Box>
             <AppBar
@@ -95,50 +124,81 @@ const Navbar = () => {
             >
                 <Container>
                     <Toolbar>
+                        <IconButton
+                            color="inherit"
+                            onClick={() => setDrawerOpen(true)}
+                            sx={{
+                                mr: 2,
+                                display: { sm: 'none' },
+                                // flexGrow: 1,
+                            }}
+                        >
+                            <Menu />
+                        </IconButton>
                         <Typography
                             variant="h6"
                             onClick={() => history.push('/')}
                             sx={{
                                 cursor: "pointer",
                                 flexGrow: 1,
+                                // display: { xs: 'none', sm: 'block' }
                             }}
                         >
                             TFASoft Blog
                         </Typography>
-                        <Button
-                            variant="text"
-                            onClick={() => session ? setDialogOpen(true) : history.push('/auth')}
-                            sx={{
-                                color: "white"
-                            }}
-                        >
-                            { session ? "Add a new blog" : "Login" }
-                        </Button>
-                        {
-                            session
-                            &&
+                        <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
                             <Button
                                 variant="text"
-                                onClick={() => history.push('/panel')}
+                                onClick={() => session ? setDialogOpen(true) : history.push('/auth')}
                                 sx={{
                                     color: "white"
                                 }}
                             >
-                                Panel
+                                { session ? "Add a new blog" : "Login" }
                             </Button>
-                        }
+                            {
+                                session
+                                &&
+                                <Button
+                                    variant="text"
+                                    onClick={() => history.push('/panel')}
+                                    sx={{
+                                        color: "white"
+                                    }}
+                                >
+                                    Panel
+                                </Button>
+                            }
+                        </Box>
                         <IconButton
-                            variant="text"
+                            color="inherit"
                             onClick={() => dispatch(setTheme(theme === 'light' ? 'dark' : 'light'))}
-                            sx={{
-                                color: "white"
-                            }}
+                            // sx={{
+                            //     color: "white"
+                            // }}
                         >
                             { theme === 'light' ? <DarkMode /> : <LightMode />}
                         </IconButton>
                     </Toolbar>
                 </Container>
             </AppBar>
+
+            <Box component="nav">
+                <Drawer
+                    variant="temporary"
+                    open={drawerOpen}
+                    onClose={() => setDrawerOpen(false)}
+                    ModalProps={{
+                        keepMounted: true,
+                    }}
+                    sx={{
+                        display: { xs: 'block', sm: 'none' },
+                        '& .MuiDrawer-paper': { boxSizing: 'border-box', width: 240 },
+                    }}
+                >
+                    {drawer}
+                </Drawer>
+            </Box>
 
             <Dialog
                 open={dialogOpen}
