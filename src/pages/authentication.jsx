@@ -25,7 +25,7 @@ const AuthenticationPage = () => {
     const history = useHistory();
 
     const session = useSelector(state => state.session);
-    if (session) history.push('/auth');
+    if (session) history.push('/panel');
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
