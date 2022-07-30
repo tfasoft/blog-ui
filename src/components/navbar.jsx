@@ -18,6 +18,11 @@ import {
     TextField,
     Alert,
     Snackbar,
+    List,
+    ListItem,
+    ListItemText,
+    Menu,
+    MenuItem
 } from "@mui/material";
 
 import {
@@ -28,6 +33,13 @@ import {
 import Axios from "axios";
 import {setTheme} from "../redux/actions/theme";
 
+const options = [
+    'Show some love to MUI',
+    'Show all notification content',
+    'Hide sensitive notification content',
+    'Hide all notification content',
+];
+
 const Navbar = () => {
     const history = useHistory();
     const dispatch = useDispatch();
@@ -35,7 +47,10 @@ const Navbar = () => {
     const theme = useSelector(state => state.theme);
     const session = useSelector(state => state.session);
 
+    const author = useSelector(state => state.user);
+
     const [dialogOpen, setDialogOpen] = useState(false);
+    const [menuOpen, setMenuOpen] = useState(false);
 
     const [title, setTitle] = useState('');
     const [short, setShort] = useState('');
@@ -52,11 +67,12 @@ const Navbar = () => {
     }
 
     const addBlog = () => {
+
         const data = {
             title,
             content,
             short,
-            author: "Amir",
+            author: author.name
         }
 
         Axios.post(`http://localhost:8000/blogs/add`, data)
@@ -98,6 +114,19 @@ const Navbar = () => {
                         >
                             { session ? "Add a new blog" : "Login" }
                         </Button>
+                        {
+                            session
+                            &&
+                            <Button
+                                variant="text"
+                                onClick={() => history.push('/panel')}
+                                sx={{
+                                    color: "white"
+                                }}
+                            >
+                                Panel
+                            </Button>
+                        }
                         <IconButton
                             variant="text"
                             onClick={() => dispatch(setTheme(theme === 'light' ? 'dark' : 'light'))}
