@@ -35,6 +35,9 @@ import {
     Login,
     Dashboard,
     PostAdd,
+    Home,
+    MenuBook,
+    Biotech
 } from "@mui/icons-material";
 
 import Axios from "axios";
@@ -70,8 +73,30 @@ const Navbar = () => {
         setSnackOpen(true);
     }
 
-    const addBlog = () => {
+    const navItems = [
+        {
+            name: 'TFASoft',
+            href: 'https://tfasoft.amirhossein.info',
+            icon: <Home />,
+        },
+        {
+            name: 'Dashboard',
+            href: 'https://dashboard.amirhossein.info',
+            icon: <Dashboard />,
+        },
+        {
+            name: 'Docs',
+            href: 'https://docs.amirhossein.info',
+            icon: <MenuBook />,
+        },
+        {
+            name: 'Demo',
+            href: 'https://demo.amirhossein.info',
+            icon: <Biotech />,
+        },
+    ];
 
+    const addBlog = () => {
         const data = {
             title,
             content,
@@ -118,7 +143,7 @@ const Navbar = () => {
                         <ListItemButton
                             onClick={() => setDialogOpen(true)}
                         >
-                            <ListItemIcon>
+                            <ListItemIcon sx={{ color: "primary.main" }}>
                                 <PostAdd />
                             </ListItemIcon>
                             <ListItemText primary="Add a new blog" />
@@ -132,7 +157,7 @@ const Navbar = () => {
                         <ListItemButton
                             onClick={() => history.push('/panel')}
                         >
-                            <ListItemIcon>
+                            <ListItemIcon sx={{ color: "primary.main" }}>
                                 <Dashboard />
                             </ListItemIcon>
                             <ListItemText primary="Panel" />
@@ -150,7 +175,7 @@ const Navbar = () => {
                                     dispatch(deleteUser());
                                 }}
                             >
-                                <ListItemIcon>
+                                <ListItemIcon sx={{ color: "primary.main" }}>
                                     <Logout />
                                 </ListItemIcon>
                                 <ListItemText primary="Logout" />
@@ -161,12 +186,29 @@ const Navbar = () => {
                             <ListItemButton
                                 onClick={() => history.push('/auth')}
                             >
-                                <ListItemIcon>
+                                <ListItemIcon sx={{ color: "primary.main" }}>
                                     <Login />
                                 </ListItemIcon>
                                 <ListItemText primary="Login" />
                             </ListItemButton>
                         </ListItem>
+                }
+            </List>
+            <Divider />
+            <List>
+                {
+                    navItems.map((item) => {
+                        return (
+                            <ListItem disablePadding>
+                                <ListItemButton component="a" href={ item.href }>
+                                    <ListItemIcon sx={{ color: "primary.main" }}>
+                                        { item.icon }
+                                    </ListItemIcon>
+                                    <ListItemText primary={ item.name } />
+                                </ListItemButton>
+                            </ListItem>
+                        );
+                    })
                 }
             </List>
         </Box>
@@ -184,7 +226,7 @@ const Navbar = () => {
                             onClick={() => setDrawerOpen(true)}
                             sx={{
                                 mr: 2,
-                                display: { sm: 'none' },
+                                display: { xs: 'block', sm: 'block', md: 'none' },
                             }}
                         >
                             <Menu />
@@ -199,7 +241,22 @@ const Navbar = () => {
                         >
                             TFASoft Blog
                         </Typography>
-                        <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
+                        <Box sx={{ display: { xs: 'none', sm: 'none', md: 'block' } }}>
+                            {
+                                navItems.map((item) => {
+                                    return (
+                                        <Button
+                                            variant="text"
+                                            href={item.href}
+                                            sx={{
+                                                color: "white"
+                                            }}
+                                        >
+                                            {item.name}
+                                        </Button>
+                                    );
+                                })
+                            }
                             {
                                 session
                                 &&
@@ -275,7 +332,7 @@ const Navbar = () => {
                         keepMounted: true,
                     }}
                     sx={{
-                        display: { xs: 'block', sm: 'none' },
+                        display: { xs: 'block', sm: 'block', md: 'none' },
                         '& .MuiDrawer-paper': {
                             boxSizing: 'border-box',
                             width: 240,
