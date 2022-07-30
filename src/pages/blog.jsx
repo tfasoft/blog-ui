@@ -84,7 +84,7 @@ const BlogPage = () => {
                         >
                             <Card
                                 variant="outlined"
-                                sx={{ borderColor: "white", borderRadius: 5 }}
+                                sx={{ borderColor: "none", borderRadius: 5 }}
                             >
                                 <CardContent>
                                     <Typography
@@ -122,7 +122,7 @@ const BlogPage = () => {
                         >
                             <Card
                                 variant="outlined"
-                                sx={{ borderColor: "white", borderRadius: 5 }}
+                                sx={{ borderColor: "none", borderRadius: 5 }}
                             >
                                 <CardContent>
                                     <Box>
