@@ -7,7 +7,6 @@ import AuthenticationPage from "./pages/authentication";
 import BlogPage from "./pages/blog";
 import BlogsPage from "./pages/blogs";
 import HomePage from "./pages/home";
-import AddBlogPage from "./pages/add";
 
 function App() {
     const theme = createTheme({
@@ -30,7 +29,6 @@ function App() {
                     <Route path="/" exact><BlogsPage/></Route>
                     <Route path="/auth" exact><AuthenticationPage/></Route>
                     <Route path="/blogs" exact><BlogsPage/></Route>
-                    <Route path="/blog/add" exact><AddBlogPage/></Route>
                     <Route path="/blog/:blog_id" exact><BlogPage/></Route>
                 </Switch>
             </Router>
