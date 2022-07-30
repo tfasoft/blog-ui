@@ -9,6 +9,7 @@ import AuthenticationPage from "./pages/authentication";
 import BlogPage from "./pages/blog";
 import BlogsPage from "./pages/blogs";
 import HomePage from "./pages/home";
+import PanelPage from "./pages/panel";
 
 function App() {
     const mode = useSelector(state => state.theme);
@@ -24,6 +25,17 @@ function App() {
                 main: mode === "light" ? "#071e4e" : "#fff",
             },
         },
+        components: {
+            MuiPaperTable: {
+                defaultProps: {
+                    sx: {
+                        border: "none",
+                        borderRadius: 5,
+                    },
+                    variant: "outlined"
+                }
+            }
+        }
     });
 
     return (
@@ -33,7 +45,10 @@ function App() {
                 <Navbar text="Bye">Hello</Navbar>
                 <Switch>
                     <Route path="/" exact><BlogsPage/></Route>
+
                     <Route path="/auth" exact><AuthenticationPage/></Route>
+                    <Route path="/panel" exact><PanelPage/></Route>
+
                     <Route path="/blogs" exact><BlogsPage/></Route>
                     <Route path="/blog/:blog_id" exact><BlogPage/></Route>
                 </Switch>
