@@ -1,7 +1,7 @@
 import {
     Container,
     Box,
-    Typography,
+    Typography, Toolbar,
 } from "@mui/material";
 
 const HomePage = () => {
@@ -12,6 +12,7 @@ const HomePage = () => {
                 mb: "1rem",
             }}
         >
+            <Toolbar />
             <Box>
                 <Typography
                     variant="h5"
