@@ -16,7 +16,7 @@ import {
     CircularProgress,
     Button,
     Alert,
-    Snackbar
+    Snackbar, Toolbar
 } from "@mui/material";
 
 import {
@@ -69,6 +69,7 @@ const BlogPage = () => {
                 mb: "1rem",
             }}
         >
+            <Toolbar />
             {
                 blog
                 ?
@@ -84,7 +85,7 @@ const BlogPage = () => {
                         >
                             <Card
                                 variant="outlined"
-                                sx={{ borderColor: "none", borderRadius: 5 }}
+                                sx={{ border: "none", borderRadius: 5 }}
                             >
                                 <CardContent>
                                     <Typography
@@ -122,7 +123,7 @@ const BlogPage = () => {
                         >
                             <Card
                                 variant="outlined"
-                                sx={{ borderColor: "none", borderRadius: 5 }}
+                                sx={{ border: "none", borderRadius: 5 }}
                             >
                                 <CardContent>
                                     <Box>
