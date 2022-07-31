@@ -1,7 +1,8 @@
 import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
 import {ThemeProvider, createTheme, CssBaseline} from "@mui/material";
 
-import {useSelector} from "react-redux";
+import {useSelector, useDispatch} from "react-redux";
+import {envCreate} from "./redux/actions/env";
 
 import Navbar from "./components/navbar";
 
@@ -12,7 +13,10 @@ import HomePage from "./pages/home";
 import PanelPage from "./pages/panel";
 
 function App() {
+    const dispatch = useDispatch();
     const mode = useSelector(state => state.theme);
+
+    dispatch(envCreate(process.env));
 
     const theme = createTheme({
         palette: {
