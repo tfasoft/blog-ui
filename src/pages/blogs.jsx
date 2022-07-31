@@ -60,7 +60,7 @@ const BlogsPage = () => {
                             container
                         >
                             {
-                                blogs.map((blog) => {
+                                blogs.reverse().map((blog) => {
                                     return (
                                         <Grid
                                             md={4}
