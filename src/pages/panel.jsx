@@ -118,7 +118,7 @@ const PanelPage = () => {
                                         </TableRow>
                                     </TableHead>
                                     <TableBody>
-                                        {blogs.map((blog) => (
+                                        {blogs.reverse().map((blog) => (
                                             <TableRow key={blog._id}>
                                                 <TableCell
                                                     component="th"
