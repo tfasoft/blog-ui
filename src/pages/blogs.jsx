@@ -1,3 +1,4 @@
+import {useSelector} from "react-redux";
 import {
     Container,
     Grid,
@@ -24,22 +25,29 @@ const BlogsPage = () => {
             })
     }, [blogs]);
 
+    const theme = useSelector(state => state.theme);
+
     return (
         <Container
+            maxWidth="xl"
             sx={{
-                mt: "5rem",
-                mb: "1rem",
+                mb: "5rem",
+                background: `linear-gradient(to bottom, ${ theme === "light" ? "#071e4e" : "#222" } 60%, ${ theme === "light" ? "#f8f4fc" : "#333" } 40%)`,
             }}
         >
             <Toolbar />
             {
                 blogs
                 ?
-                    <Box>
+                    <Container
+                        sx={{
+                            mt: "5rem",
+                        }}
+                    >
                         <Typography
                             variant="h2"
                             fontWeight="bold"
-                            sx={{ color: "primary.main" }}
+                            color="white"
                             gutterBottom
                         >
                             Featured posts
@@ -63,7 +71,7 @@ const BlogsPage = () => {
                                 })
                             }
                         </Grid>
-                    </Box>
+                    </Container>
                 :
                     <Box
                         sx={{ textAlign: "center" }}

@@ -13,7 +13,8 @@ const BlogItem = (props) => {
 
     return (
         <Card
-            variant="outlined"
+            variant="elevation"
+            elevation={21}
             sx={{ border: "none", borderRadius: 5 }}
         >
             <CardContent>
