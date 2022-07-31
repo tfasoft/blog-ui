@@ -30,6 +30,9 @@ const BlogPage = () => {
 
     const session = useSelector(state => state.session);
 
+    const env = useSelector(state => state.env);
+    const backendAPI = env.REACT_APP_BACKEND_API;
+
     const [snackOpen, setSnackOpen] = useState(false);
     const [snackTitle, setSnackTitle] = useState('');
     const [snackType, setSnackType] = useState('');
@@ -43,7 +46,7 @@ const BlogPage = () => {
     const [blog, setBlog] = useState(false);
 
     useEffect(() => {
-        Axios.get(`http://localhost:8000/blogs/get/${blog_id}`)
+        Axios.get(`${backendAPI}/blogs/get/${blog_id}`)
             .then((result) => {
                 setBlog(result.data.blog);
 
@@ -55,7 +58,7 @@ const BlogPage = () => {
     }, []);
 
     const deleteBlog = () => {
-        Axios.post(`http://localhost:8000/blogs/delete/${blog_id}`)
+        Axios.post(`${backendAPI}/blogs/delete/${blog_id}`)
             .then((result) => {
                 createSnack('Post deleted', 'success');
                 history.push('/blogs');
