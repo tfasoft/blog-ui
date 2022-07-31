@@ -42,13 +42,16 @@ const AuthenticationPage = () => {
 
     const theme = useSelector(state => state.theme);
 
+    const env = useSelector(state => state.env);
+    const backendAPI = env.REACT_APP_BACKEND_API;
+
     const login = () => {
         const data = {
             username,
             password,
         }
 
-        Axios.post('http://localhost:8000/auth/login', data)
+        Axios.post(`${backendAPI}/auth/login`, data)
             .then((result) => {
                 const author = result.data.author;
 
