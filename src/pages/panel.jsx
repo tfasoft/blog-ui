@@ -38,6 +38,9 @@ import {PanelBlogItem} from "../components/blogitem";
 const PanelPage = () => {
     const history = useHistory();
 
+    const env = useSelector(state => state.env);
+    const backendAPI = env.REACT_APP_BACKEND_API;
+
     const session = useSelector(state => state.session);
     if (!session) history.push('/auth');
 
@@ -52,7 +55,7 @@ const PanelPage = () => {
     }
 
     const deleteBlog = (blog_id) => {
-        Axios.post(`http://localhost:8000/blogs/delete/${blog_id}`)
+        Axios.post(`${backendAPI}/blogs/delete/${blog_id}`)
             .then((result) => {
                 createSnack('Post deleted', 'success');
             })
@@ -64,7 +67,7 @@ const PanelPage = () => {
     const [blogs, setBlogs] = useState(false);
 
     useEffect(() => {
-        Axios.get('http://localhost:8000/blogs/all')
+        Axios.get(`${backendAPI}/blogs/all`)
             .then((result) => {
                 setBlogs(result.data);
             })
