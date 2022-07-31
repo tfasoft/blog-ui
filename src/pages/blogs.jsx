@@ -15,8 +15,11 @@ import BlogItem from "../components/blogitem";
 const BlogsPage = () => {
     const [blogs, setBlogs] = useState(false);
 
+    const env = useSelector(state => state.env);
+    const backendAPI = env.REACT_APP_BACKEND_API;
+
     useEffect(() => {
-        Axios.get('http://localhost:8000/blogs/all')
+        Axios.get(`${backendAPI}/blogs/all`)
             .then((result) => {
                 setBlogs(result.data);
             })
@@ -74,9 +77,15 @@ const BlogsPage = () => {
                     </Container>
                 :
                     <Box
-                        sx={{ textAlign: "center" }}
+                        sx={{
+                            textAlign: "center"
+                        }}
                     >
-                        <CircularProgress />
+                        <CircularProgress
+                            sx={{
+                                mt: "3rem",
+                            }}
+                        />
                     </Box>
             }
         </Container>
