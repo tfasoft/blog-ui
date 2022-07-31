@@ -103,7 +103,8 @@ const Navbar = () => {
             title,
             content,
             short,
-            author: author.name
+            author: author.name,
+            views: 0,
         }
 
         Axios.post(`${backendAPI}/blogs/add`, data)
