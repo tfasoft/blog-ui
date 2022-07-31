@@ -5,6 +5,7 @@ import {useSelector} from "react-redux";
 import Axios from "axios";
 
 import { Parser } from 'html-to-react';
+import { formatDistanceToNow } from "date-fns";
 
 import {
     Container,
@@ -169,7 +170,7 @@ const BlogPage = () => {
                                         <Typography
                                             color="text.secondary"
                                         >
-                                            {blog.createdAt}
+                                            {formatDistanceToNow(new Date(blog.createdAt))}
                                         </Typography>
                                     </Box>
                                     <Box>
