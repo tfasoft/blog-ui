@@ -42,9 +42,9 @@ function App() {
         <ThemeProvider theme={theme}>
             <CssBaseline/>
             <Router>
-                <Navbar text="Bye">Hello</Navbar>
+                <Navbar />
                 <Switch>
-                    <Route path="/" exact><BlogsPage/></Route>
+                    <Route path="/" exact><HomePage/></Route>
 
                     <Route path="/auth" exact><AuthenticationPage/></Route>
                     <Route path="/panel" exact><PanelPage/></Route>
