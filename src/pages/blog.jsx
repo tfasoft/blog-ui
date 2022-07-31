@@ -149,7 +149,6 @@ const BlogPage = () => {
                                         </Typography>
                                         <Typography
                                             color="text.secondary"
-                                            gutterBottom
                                         >
                                             {blog.author}
                                         </Typography>
@@ -169,9 +168,27 @@ const BlogPage = () => {
                                         </Typography>
                                         <Typography
                                             color="text.secondary"
-                                            gutterBottom
                                         >
                                             {blog.createdAt}
+                                        </Typography>
+                                    </Box>
+                                    <Box>
+                                        <br />
+                                        <Divider sx={{ borderColor: "primary.main" }} />
+                                        <br />
+                                    </Box>
+                                    <Box>
+                                        <Typography
+                                            variant="h5"
+                                            sx={{ color: "primary.main" }}
+                                            gutterBottom
+                                        >
+                                            Total views
+                                        </Typography>
+                                        <Typography
+                                            color="text.secondary"
+                                        >
+                                            {blog.views}
                                         </Typography>
                                     </Box>
                                     {
