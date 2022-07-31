@@ -1,11 +1,13 @@
 import {
     Card,
     CardContent,
+    Divider,
     Typography,
     Box,
 } from "@mui/material";
 
 import {useHistory} from "react-router-dom";
+import { formatDistanceToNow } from "date-fns";
 
 const BlogItem = (props) => {
     const blog = props.blog;
@@ -33,11 +35,19 @@ const BlogItem = (props) => {
                     {blog.title}
                 </Typography>
                 <Typography
-                    color="text.secondary"
+                    // color="text.secondary"
                     gutterBottom
                     paragraph
                 >
                     {blog.short}
+                </Typography>
+                <Divider />
+                <br />
+                <Typography
+                    variant="body2"
+                    color="text.secondary"
+                >
+                    Posted { formatDistanceToNow(new Date(blog.createdAt)) } ago
                 </Typography>
             </CardContent>
         </Card>
