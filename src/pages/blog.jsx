@@ -303,31 +303,44 @@ const BlogPage = () => {
                                                 >
                                                     Update blog
                                                 </Typography>
-                                                <Button
-                                                    variant="contained"
-                                                    color="info"
-                                                    startIcon={<Edit />}
-                                                    onClick={() => editMode ? updateBlog() : setEditMode(true)}
-                                                    disableElevation
-                                                    fullWidth
-                                                >
-                                                    { editMode ? 'Update' : 'Edit blog'}
-                                                </Button>
                                                 {
-                                                    editMode
-                                                    &&
-                                                    <Box>
-                                                        <br />
-                                                        <Button
-                                                            variant="outlined"
-                                                            color="info"
-                                                            onClick={() => setEditMode(false)}
-                                                            disableElevation
-                                                            fullWidth
-                                                        >
-                                                            Cancel edit
-                                                        </Button>
-                                                    </Box>
+                                                    !editMode
+                                                    ?
+                                                    <Button
+                                                        variant="contained"
+                                                        color="info"
+                                                        startIcon={<Edit />}
+                                                        onClick={() => setEditMode(true)}
+                                                        disableElevation
+                                                        fullWidth
+                                                    >
+                                                        Edit blog
+                                                    </Button>
+                                                    :
+                                                    <Grid spacing={2} container>
+                                                        <Grid md={6} sm={6} xs={6} item>
+                                                            <Button
+                                                                variant="outlined"
+                                                                color="info"
+                                                                onClick={() => setEditMode(false)}
+                                                                disableElevation
+                                                                fullWidth
+                                                            >
+                                                                Cancel
+                                                            </Button>
+                                                        </Grid>
+                                                        <Grid md={6} sm={6} xs={6} item>
+                                                            <Button
+                                                                variant="contained"
+                                                                color="info"
+                                                                onClick={() => updateBlog()}
+                                                                disableElevation
+                                                                fullWidth
+                                                            >
+                                                                Update
+                                                            </Button>
+                                                        </Grid>
+                                                    </Grid>
                                                 }
                                             </Box>
                                             <Box>
