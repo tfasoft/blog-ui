@@ -53,6 +53,8 @@ const Navbar = () => {
 
     const theme = useSelector(state => state.theme);
     const session = useSelector(state => state.session);
+    const env = useSelector(state => state.env);
+    const backendAPI = env.REACT_APP_BACKEND_API;
 
     const author = useSelector(state => state.user);
 
@@ -104,7 +106,7 @@ const Navbar = () => {
             author: author.name
         }
 
-        Axios.post(`http://localhost:8000/blogs/add`, data)
+        Axios.post(`${backendAPI}/blogs/add`, data)
             .then((result) => {
                 setTitle('');
                 setShort('');
