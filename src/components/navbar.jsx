@@ -37,7 +37,8 @@ import {
     PostAdd,
     Home,
     MenuBook,
-    Biotech
+    Biotech,
+    RssFeed
 } from "@mui/icons-material";
 
 import Axios from "axios";
@@ -167,6 +168,16 @@ const Navbar = () => {
                         </ListItemButton>
                     </ListItem>
                 }
+                <ListItem disablePadding>
+                    <ListItemButton
+                        onClick={() => history.push('/blogs')}
+                    >
+                        <ListItemIcon sx={{ color: "primary.main" }}>
+                            <RssFeed />
+                        </ListItemIcon>
+                        <ListItemText primary="Blogs" />
+                    </ListItemButton>
+                </ListItem>
                 {
                     session
                     ?
@@ -286,6 +297,15 @@ const Navbar = () => {
                                     Panel
                                 </Button>
                             }
+                            <Button
+                                variant="text"
+                                onClick={() => history.push('/blogs')}
+                                sx={{
+                                    color: "white"
+                                }}
+                            >
+                                Blogs
+                            </Button>
                             {
                                 session
                                 ?
