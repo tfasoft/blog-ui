@@ -4,18 +4,14 @@ import {useSelector} from "react-redux";
 
 import Axios from "axios";
 
-import { Parser } from 'html-to-react';
+import DocumentMeta from 'react-document-meta';
 
 import {
     Container,
     Box,
-    Card,
-    CardContent,
     Typography,
     Grid,
-    Divider,
     CircularProgress,
-    Button,
     IconButton,
     Alert,
     Snackbar,
@@ -32,8 +28,6 @@ import {
 import {
     Delete
 } from "@mui/icons-material";
-
-import {PanelBlogItem} from "../components/blogitem";
 
 const PanelPage = () => {
     const history = useHistory();
@@ -76,91 +70,108 @@ const PanelPage = () => {
             })
     }, [blogs]);
 
+    const meta = {
+        title: "Admin panel",
+        description: 'TFAsoft admin panel',
+        canonical: 'https://blog.amirhossein.info/panel',
+        meta: {
+            charset: 'utf-8',
+            name: {
+            keywords: 'tfasoft,tfasoft blog,blog,tfa'
+            }
+        },
+        link: {
+            rel: { icon: "../assets/icons/favicon.ico" },
+        },
+    }
+
     return (
-        <Container
-            sx={{
-                mt: "3rem",
-                mb: "1rem",
-            }}
-        >
-            <Toolbar />
-
-            <Grid
-                spacing={3}
-                container
+        <DocumentMeta {...meta}>
+            <Container
+                sx={{
+                    mt: "3rem",
+                    mb: "1rem",
+                }}
             >
-                <Grid
-                    md={6}
-                    sm={12}
-                    xs={12}
-                    item
-                >
-                    <Typography
-                        variant="h4"
-                        fontWeight="bold"
-                        sx={{ color: "primary.main" }}
-                        gutterBottom
-                    >
-                        List of blogs
-                    </Typography>
-                    {
-                        blogs
-                        ?
-                            <TableContainer
-                                component={Paper}
-                            >
-                                <Table>
-                                    <TableHead>
-                                        <TableRow>
-                                            <TableCell sx={{ color: "primary.main" }}>Title</TableCell>
-                                            <TableCell sx={{ color: "primary.main" }}>Short</TableCell>
-                                            <TableCell sx={{ color: "primary.main" }}>Delete</TableCell>
-                                        </TableRow>
-                                    </TableHead>
-                                    <TableBody>
-                                        {blogs.reverse().map((blog) => (
-                                            <TableRow key={blog._id}>
-                                                <TableCell
-                                                    component="th"
-                                                    scope="row"
-                                                    onClick={() => history.push(`/blog/${blog._id}`)}
-                                                    sx={{
-                                                        color: "primary.main",
-                                                        cursor: "pointer",
-                                                    }}
-                                                >
-                                                    {blog.title}
-                                                </TableCell>
-                                                <TableCell>{blog.short}</TableCell>
-                                                <TableCell>
-                                                    <IconButton
-                                                        onClick={() => deleteBlog(blog._id)}
-                                                        color="error"
-                                                    >
-                                                        <Delete />
-                                                    </IconButton>
-                                                </TableCell>
-                                            </TableRow>
-                                        ))}
-                                    </TableBody>
-                                </Table>
-                            </TableContainer>
-                        :
-                            <Box
-                                sx={{ textAlign: "center" }}
-                            >
-                                <CircularProgress />
-                            </Box>
-                    }
-                </Grid>
-            </Grid>
+                <Toolbar />
 
-            <Snackbar open={snackOpen} autoHideDuration={6000} onClose={() => setSnackOpen(false)}>
-                <Alert onClose={() => setSnackOpen(false)} severity={snackType}>
-                    {snackTitle}
-                </Alert>
-            </Snackbar>
-        </Container>
+                <Grid
+                    spacing={3}
+                    container
+                >
+                    <Grid
+                        md={6}
+                        sm={12}
+                        xs={12}
+                        item
+                    >
+                        <Typography
+                            variant="h4"
+                            fontWeight="bold"
+                            sx={{ color: "primary.main" }}
+                            gutterBottom
+                        >
+                            List of blogs
+                        </Typography>
+                        {
+                            blogs
+                            ?
+                                <TableContainer
+                                    component={Paper}
+                                >
+                                    <Table>
+                                        <TableHead>
+                                            <TableRow>
+                                                <TableCell sx={{ color: "primary.main" }}>Title</TableCell>
+                                                <TableCell sx={{ color: "primary.main" }}>Short</TableCell>
+                                                <TableCell sx={{ color: "primary.main" }}>Delete</TableCell>
+                                            </TableRow>
+                                        </TableHead>
+                                        <TableBody>
+                                            {blogs.reverse().map((blog) => (
+                                                <TableRow key={blog._id}>
+                                                    <TableCell
+                                                        component="th"
+                                                        scope="row"
+                                                        onClick={() => history.push(`/blog/${blog._id}`)}
+                                                        sx={{
+                                                            color: "primary.main",
+                                                            cursor: "pointer",
+                                                        }}
+                                                    >
+                                                        {blog.title}
+                                                    </TableCell>
+                                                    <TableCell>{blog.short}</TableCell>
+                                                    <TableCell>
+                                                        <IconButton
+                                                            onClick={() => deleteBlog(blog._id)}
+                                                            color="error"
+                                                        >
+                                                            <Delete />
+                                                        </IconButton>
+                                                    </TableCell>
+                                                </TableRow>
+                                            ))}
+                                        </TableBody>
+                                    </Table>
+                                </TableContainer>
+                            :
+                                <Box
+                                    sx={{ textAlign: "center" }}
+                                >
+                                    <CircularProgress />
+                                </Box>
+                        }
+                    </Grid>
+                </Grid>
+
+                <Snackbar open={snackOpen} autoHideDuration={6000} onClose={() => setSnackOpen(false)}>
+                    <Alert onClose={() => setSnackOpen(false)} severity={snackType}>
+                        {snackTitle}
+                    </Alert>
+                </Snackbar>
+            </Container>
+        </DocumentMeta>
     );
 }
 
