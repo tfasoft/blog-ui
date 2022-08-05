@@ -2,9 +2,10 @@ import {useState} from "react";
 import {useHistory} from "react-router-dom";
 import {useSelector, useDispatch} from "react-redux";
 
+import DocumentMeta from 'react-document-meta';
+
 import {
     Container,
-    Box,
     Typography,
     Card,
     CardContent,
@@ -64,76 +65,93 @@ const AuthenticationPage = () => {
             });
     }
 
-    return (
-        <Container
-            maxWidth="xl"
-            sx={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                height: "100vh",
-                background: `linear-gradient(to bottom, ${ theme === "light" ? "#071e4e" : "#222" } 50%, ${ theme === "light" ? "#f8f4fc" : "#333" } 50%)`,
-            }}
-        >
-            <Container
-                maxWidth="xs"
-            >
-                <Card
-                    variant="elevation"
-                    elevation={20}
-                    sx={{ border: "none", borderRadius: 5 }}
-                >
-                    <CardContent>
-                        <Typography
-                            variant="h4"
-                            color="primary.main"
-                            fontWeight="bold"
-                            gutterBottom
-                        >
-                            TFAsoft blog
-                        </Typography>
-                        <br />
-                        <TextField
-                            variant="outlined"
-                            color="primary"
-                            size="small"
-                            placeholder="Enter username"
-                            label="Username"
-                            sx={{ mb: "1rem" }}
-                            value={username}
-                            onChange={(e) => setUsername(e.target.value)}
-                            fullWidth
-                        />
-                        <TextField
-                            variant="outlined"
-                            color="primary"
-                            size="small"
-                            placeholder="Enter password"
-                            label="Password"
-                            type="password"
-                            sx={{ mb: "1rem" }}
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            fullWidth
-                        />
-                        <Button
-                            variant="contained"
-                            onClick={() => login()}
-                            disableElevation
-                            fullWidth
-                        >
-                            Login
-                        </Button>
-                    </CardContent>
-                </Card>
-            </Container>
+    const meta = {
+        title: "Login to your account",
+        description: 'If you have access to blogs, you can login and share posts.',
+        canonical: 'https://blog.amirhossein.info/auth',
+        meta: {
+            charset: 'utf-8',
+            name: {
+            keywords: 'tfasoft,tfasoft blog,blog,tfa'
+            }
+        },
+        link: {
+            rel: { icon: "../assets/icons/favicon.ico" },
+        },
+    }
 
-            <Snackbar open={snackOpen} autoHideDuration={6000} onClose={() => setSnackOpen(false)}>
-                <Alert onClose={() => setSnackOpen(false)} severity={snackType}>
-                    {snackTitle}
-                </Alert>
-            </Snackbar>
-        </Container>
+    return (
+        <DocumentMeta {...meta}>
+            <Container
+                maxWidth="xl"
+                sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    height: "100vh",
+                    background: `linear-gradient(to bottom, ${ theme === "light" ? "#071e4e" : "#222" } 50%, ${ theme === "light" ? "#f8f4fc" : "#333" } 50%)`,
+                }}
+            >
+                <Container
+                    maxWidth="xs"
+                >
+                    <Card
+                        variant="elevation"
+                        elevation={20}
+                        sx={{ border: "none", borderRadius: 5 }}
+                    >
+                        <CardContent>
+                            <Typography
+                                variant="h4"
+                                color="primary.main"
+                                fontWeight="bold"
+                                gutterBottom
+                            >
+                                TFAsoft blog
+                            </Typography>
+                            <br />
+                            <TextField
+                                variant="outlined"
+                                color="primary"
+                                size="small"
+                                placeholder="Enter username"
+                                label="Username"
+                                sx={{ mb: "1rem" }}
+                                value={username}
+                                onChange={(e) => setUsername(e.target.value)}
+                                fullWidth
+                            />
+                            <TextField
+                                variant="outlined"
+                                color="primary"
+                                size="small"
+                                placeholder="Enter password"
+                                label="Password"
+                                type="password"
+                                sx={{ mb: "1rem" }}
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                fullWidth
+                            />
+                            <Button
+                                variant="contained"
+                                onClick={() => login()}
+                                disableElevation
+                                fullWidth
+                            >
+                                Login
+                            </Button>
+                        </CardContent>
+                    </Card>
+                </Container>
+
+                <Snackbar open={snackOpen} autoHideDuration={6000} onClose={() => setSnackOpen(false)}>
+                    <Alert onClose={() => setSnackOpen(false)} severity={snackType}>
+                        {snackTitle}
+                    </Alert>
+                </Snackbar>
+            </Container>
+        </DocumentMeta>
     )
 }
 
