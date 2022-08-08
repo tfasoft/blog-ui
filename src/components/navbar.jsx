@@ -240,7 +240,6 @@ const Navbar = () => {
                             onClick={() => setDrawerOpen(true)}
                             sx={{
                                 mr: 2,
-                                display: { xs: 'block', sm: 'block', md: 'none' },
                             }}
                         >
                             <Menu />
