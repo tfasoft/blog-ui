@@ -256,21 +256,6 @@ const Navbar = () => {
                         </Typography>
                         <Box sx={{ display: { xs: 'none', sm: 'none', md: 'block' } }}>
                             {
-                                navItems.map((item) => {
-                                    return (
-                                        <Button
-                                            variant="text"
-                                            href={item.href}
-                                            sx={{
-                                                color: "white"
-                                            }}
-                                        >
-                                            {item.name}
-                                        </Button>
-                                    );
-                                })
-                            }
-                            {
                                 session
                                 &&
                                 <Button
@@ -354,7 +339,6 @@ const Navbar = () => {
                         keepMounted: true,
                     }}
                     sx={{
-                        display: { xs: 'block', sm: 'block', md: 'none' },
                         '& .MuiDrawer-paper': {
                             boxSizing: 'border-box',
                             width: 240,
