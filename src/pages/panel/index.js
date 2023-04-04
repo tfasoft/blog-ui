@@ -1,8 +1,6 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 
-import API from "@/api";
-
 import {
   Container,
   Box,
@@ -13,16 +11,12 @@ import {
   Alert,
   Snackbar,
   Toolbar,
-  TableContainer,
-  Table,
-  TableHead,
-  TableBody,
-  TableRow,
-  TableCell,
-  Paper,
 } from "@mui/material";
 
 import { Delete } from "@mui/icons-material";
+
+import API from "@/api";
+import { Table } from "@/components";
 import { withAuth } from "@/middlewares";
 
 const Panel = () => {
@@ -77,57 +71,7 @@ const Panel = () => {
 
       <Grid spacing={3} container>
         <Grid md={6} sm={12} xs={12} item>
-          <Typography
-            variant="h4"
-            fontWeight="bold"
-            sx={{ color: "primary.main" }}
-            gutterBottom
-          >
-            List of blogs
-          </Typography>
-          {blogs ? (
-            <TableContainer component={Paper}>
-              <Table>
-                <TableHead>
-                  <TableRow>
-                    <TableCell sx={{ color: "primary.main" }}>Title</TableCell>
-                    <TableCell sx={{ color: "primary.main" }}>Short</TableCell>
-                    <TableCell sx={{ color: "primary.main" }}>Delete</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {blogs.reverse().map((blog) => (
-                    <TableRow key={blog._id}>
-                      <TableCell
-                        component="th"
-                        scope="row"
-                        onClick={() => history.push(`/blog/${blog._id}`)}
-                        sx={{
-                          color: "primary.main",
-                          cursor: "pointer",
-                        }}
-                      >
-                        {blog.title}
-                      </TableCell>
-                      <TableCell>{blog.short}</TableCell>
-                      <TableCell>
-                        <IconButton
-                          onClick={() => deleteBlog(blog._id)}
-                          color="error"
-                        >
-                          <Delete />
-                        </IconButton>
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
-          ) : (
-            <Box sx={{ textAlign: "center" }}>
-              <CircularProgress />
-            </Box>
-          )}
+          <Table data={blogs} table="blogs" del={deleteBlog} />
         </Grid>
       </Grid>
 
