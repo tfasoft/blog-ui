@@ -6,12 +6,14 @@ import {
   Typography,
 } from "@mui/material";
 
-import { useHistory } from "react-router-dom";
+import { useRouter } from "next/router";
+
 import { formatDistanceToNow } from "date-fns";
 
 const BlogItem = (props) => {
   const blog = props.blog;
-  const history = useHistory();
+
+  const history = useRouter();
 
   return (
     <Card
@@ -24,7 +26,7 @@ const BlogItem = (props) => {
     >
       <CardMedia
         component="img"
-        onClick={() => history.push(`/blog/${blog._id}`)}
+        onClick={() => history.push(`/blogs/${blog._id}`)}
         sx={{
           cursor: "pointer",
         }}
@@ -32,27 +34,17 @@ const BlogItem = (props) => {
         alt="Card media"
       />
       <CardContent>
-        <Typography
-          variant="h4"
-          // sx={{ color: "primary.main" }}
-          gutterBottom
-        >
+        <Typography variant="h4" gutterBottom>
           {blog.title}
         </Typography>
-        <Typography
-          // color="text.secondary"
-          gutterBottom
-          paragraph
-        >
+        <Typography gutterBottom paragraph>
           {blog.short}
         </Typography>
         <Divider />
         <br />
-        <Typography
-          variant="body2"
-          // color="text.secondary"
-        >
-          Posted {formatDistanceToNow(new Date(blog.createdAt))} ago
+        <Typography variant="body2">
+          Posted by {blog.author.name}{" "}
+          {formatDistanceToNow(new Date(blog.createdAt))} ago
         </Typography>
       </CardContent>
     </Card>

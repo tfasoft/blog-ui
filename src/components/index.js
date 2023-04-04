@@ -1,4 +1,4 @@
-import BlogItem from "./blogitem/blogitem";
-import Navbar from "./navbar/navbar";
+import Navbar from "@/components/navbar/navbar.component.js";
+import BlogItem from "@/components/blogitem/blogitem.component.js";
 
-export { BlogItem, Navbar };
+export { Navbar, BlogItem };
