@@ -7,10 +7,10 @@ export default function withAuth(Component) {
 
     const router = useRouter();
 
-    if (isAuthenticated) {
-      return <Component {...props} />;
-    } else {
+    if (!isAuthenticated) {
       router.push("/auth");
     }
+
+    return <Component {...props} />;
   };
 }

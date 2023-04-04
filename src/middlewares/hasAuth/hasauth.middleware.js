@@ -9,8 +9,8 @@ export default function hasAuth(Component) {
 
     if (isAuthenticated) {
       router.push("/panel");
-    } else {
-      return <Component {...props} />;
     }
+
+    return <Component {...props} />;
   };
 }
