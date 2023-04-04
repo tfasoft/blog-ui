@@ -18,6 +18,7 @@ import { setToken } from "@/redux/actions/token";
 import { setUser } from "@/redux/actions/user";
 import { Form } from "@/components";
 import { hasAuth } from "@/middlewares";
+import Head from "next/head";
 
 const Authentication = () => {
   const dispatch = useDispatch();
@@ -55,55 +56,60 @@ const Authentication = () => {
   };
 
   return (
-    <Container
-      maxWidth="xl"
-      sx={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        height: "100vh",
-        background: `linear-gradient(to bottom, ${"#071e4e"} 50%, #f8f4fc 50%)`,
-      }}
-    >
-      <Container maxWidth="xs">
-        <Card
-          variant="elevation"
-          elevation={20}
-          sx={{ border: "none", borderRadius: 1 }}
-        >
-          <CardContent>
-            <Typography
-              variant="h4"
-              color="primary.main"
-              fontWeight="bold"
-              gutterBottom
-            >
-              TFAsoft blog
-            </Typography>
-            <br />
-            <Form
-              name="login"
-              callback={login}
-              button={loading ? "Wait" : "Login"}
-              btnStyle={{
-                fullWidth: true,
-                disabled: loading,
-              }}
-            />
-          </CardContent>
-        </Card>
-      </Container>
-
-      <Snackbar
-        open={snackOpen}
-        autoHideDuration={6000}
-        onClose={() => setSnackOpen(false)}
+    <>
+      <Head>
+        <title>Login | TFAsoft</title>
+      </Head>
+      <Container
+        maxWidth="xl"
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+          background: `linear-gradient(to bottom, ${"#071e4e"} 50%, #f8f4fc 50%)`,
+        }}
       >
-        <Alert onClose={() => setSnackOpen(false)} severity={snackType}>
-          {snackTitle}
-        </Alert>
-      </Snackbar>
-    </Container>
+        <Container maxWidth="xs">
+          <Card
+            variant="elevation"
+            elevation={20}
+            sx={{ border: "none", borderRadius: 1 }}
+          >
+            <CardContent>
+              <Typography
+                variant="h4"
+                color="primary.main"
+                fontWeight="bold"
+                gutterBottom
+              >
+                TFAsoft blog
+              </Typography>
+              <br />
+              <Form
+                name="login"
+                callback={login}
+                button={loading ? "Wait" : "Login"}
+                btnStyle={{
+                  fullWidth: true,
+                  disabled: loading,
+                }}
+              />
+            </CardContent>
+          </Card>
+        </Container>
+
+        <Snackbar
+          open={snackOpen}
+          autoHideDuration={6000}
+          onClose={() => setSnackOpen(false)}
+        >
+          <Alert onClose={() => setSnackOpen(false)} severity={snackType}>
+            {snackTitle}
+          </Alert>
+        </Snackbar>
+      </Container>
+    </>
   );
 };
 

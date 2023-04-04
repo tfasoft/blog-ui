@@ -18,6 +18,7 @@ import { Delete } from "@mui/icons-material";
 import API from "@/api";
 import { Table } from "@/components";
 import { withAuth } from "@/middlewares";
+import Head from "next/head";
 
 const Panel = () => {
   const history = useRouter();
@@ -61,30 +62,37 @@ const Panel = () => {
   }, []);
 
   return (
-    <Container
-      sx={{
-        mt: "3rem",
-        mb: "1rem",
-      }}
-    >
-      <Toolbar />
+    <>
+      <Head>
+        <title>Panel | TFAsoft</title>
+      </Head>
+      <Box>
+        <Container
+          sx={{
+            mt: "3rem",
+            mb: "1rem",
+          }}
+        >
+          <Toolbar />
 
-      <Grid spacing={3} container>
-        <Grid md={6} sm={12} xs={12} item>
-          <Table data={blogs} table="blogs" del={deleteBlog} />
-        </Grid>
-      </Grid>
+          <Grid spacing={3} container>
+            <Grid md={6} sm={12} xs={12} item>
+              <Table data={blogs} table="blogs" del={deleteBlog} />
+            </Grid>
+          </Grid>
 
-      <Snackbar
-        open={snackOpen}
-        autoHideDuration={6000}
-        onClose={() => setSnackOpen(false)}
-      >
-        <Alert onClose={() => setSnackOpen(false)} severity={snackType}>
-          {snackTitle}
-        </Alert>
-      </Snackbar>
-    </Container>
+          <Snackbar
+            open={snackOpen}
+            autoHideDuration={6000}
+            onClose={() => setSnackOpen(false)}
+          >
+            <Alert onClose={() => setSnackOpen(false)} severity={snackType}>
+              {snackTitle}
+            </Alert>
+          </Snackbar>
+        </Container>
+      </Box>
+    </>
   );
 };
 

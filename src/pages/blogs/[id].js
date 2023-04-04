@@ -17,6 +17,7 @@ import {
   Toolbar,
   TextField,
 } from "@mui/material";
+import Head from "next/head";
 
 export const getServerSidePaths = async () => {
   const paths = [];
@@ -71,127 +72,139 @@ const Blog = ({ blog, error }) => {
   }
 
   return (
-    <Box>
-      <Container
-        sx={{
-          mt: "1rem",
-          mb: "1rem",
-        }}
-      >
-        <Toolbar />
-        {blog ? (
-          <Grid spacing={2} container>
-            <Grid md={9} sm={8} xs={12} item>
-              <Card variant="outlined" sx={{ border: "none", borderRadius: 5 }}>
-                <CardContent>
-                  {editMode ? (
+    <>
+      <Head>
+        <title>{blog.title} | TFAsoft</title>
+      </Head>
+      <Box>
+        <Container
+          sx={{
+            mt: "1rem",
+            mb: "1rem",
+          }}
+        >
+          <Toolbar />
+          {blog ? (
+            <Grid spacing={2} container>
+              <Grid md={9} sm={8} xs={12} item>
+                <Card
+                  variant="outlined"
+                  sx={{ border: "none", borderRadius: 5 }}
+                >
+                  <CardContent>
+                    {editMode ? (
+                      <Box>
+                        <TextField
+                          // label="Title"
+                          placeholder="Change title"
+                          onChange={(e) => setTitle(e.target.value)}
+                          value={title}
+                          fullWidth
+                        />
+                        <br />
+                        <br />
+                      </Box>
+                    ) : (
+                      <Typography
+                        variant="h3"
+                        fontWeight="bold"
+                        sx={{ color: "primary.main" }}
+                        gutterBottom
+                      >
+                        {blog.title}
+                      </Typography>
+                    )}
+                    {editMode ? (
+                      <Box>
+                        <TextField
+                          placeholder="Change short"
+                          onChange={(e) => setShort(e.target.value)}
+                          value={short}
+                          fullWidth
+                        />
+                        <br />
+                        <br />
+                      </Box>
+                    ) : (
+                      <Typography color="text.secondary" gutterBottom paragraph>
+                        {blog.short}
+                      </Typography>
+                    )}
+                    {editMode ? (
+                      <Box>
+                        <TextField
+                          // label="Title"
+                          placeholder="Change content"
+                          onChange={(e) => setContent(e.target.value)}
+                          value={content}
+                          rows={5}
+                          multiline
+                          fullWidth
+                        />
+                        <br />
+                        <br />
+                      </Box>
+                    ) : (
+                      <Box color="text.secondary">
+                        {Parser().parse(blog.content)}
+                      </Box>
+                    )}
+                  </CardContent>
+                </Card>
+              </Grid>
+              <Grid md={3} sm={4} xs={12} item>
+                <Card
+                  variant="outlined"
+                  sx={{ border: "none", borderRadius: 5 }}
+                >
+                  <CardContent>
                     <Box>
-                      <TextField
-                        // label="Title"
-                        placeholder="Change title"
-                        onChange={(e) => setTitle(e.target.value)}
-                        value={title}
-                        fullWidth
-                      />
-                      <br />
-                      <br />
+                      <Typography
+                        variant="h5"
+                        sx={{ color: "primary.main" }}
+                        gutterBottom
+                      >
+                        Author
+                      </Typography>
+                      <Typography color="text.secondary">
+                        {blog.author.name}
+                      </Typography>
                     </Box>
-                  ) : (
-                    <Typography
-                      variant="h3"
-                      fontWeight="bold"
-                      sx={{ color: "primary.main" }}
-                      gutterBottom
-                    >
-                      {blog.title}
-                    </Typography>
-                  )}
-                  {editMode ? (
                     <Box>
-                      <TextField
-                        placeholder="Change short"
-                        onChange={(e) => setShort(e.target.value)}
-                        value={short}
-                        fullWidth
-                      />
                       <br />
+                      <Divider sx={{ borderColor: "primary.main" }} />
                       <br />
                     </Box>
-                  ) : (
-                    <Typography color="text.secondary" gutterBottom paragraph>
-                      {blog.short}
-                    </Typography>
-                  )}
-                  {editMode ? (
                     <Box>
-                      <TextField
-                        // label="Title"
-                        placeholder="Change content"
-                        onChange={(e) => setContent(e.target.value)}
-                        value={content}
-                        rows={5}
-                        multiline
-                        fullWidth
-                      />
+                      <Typography
+                        variant="h5"
+                        sx={{ color: "primary.main" }}
+                        gutterBottom
+                      >
+                        Posted at
+                      </Typography>
+                      <Typography color="text.secondary">
+                        {formatDistanceToNow(new Date(blog.createdAt))} ago
+                      </Typography>
+                    </Box>
+                    <Box>
                       <br />
+                      <Divider sx={{ borderColor: "primary.main" }} />
                       <br />
                     </Box>
-                  ) : (
-                    <Box color="text.secondary">
-                      {Parser().parse(blog.content)}
+                    <Box>
+                      <Typography
+                        variant="h5"
+                        sx={{ color: "primary.main" }}
+                        gutterBottom
+                      >
+                        Total views
+                      </Typography>
+                      <Typography color="text.secondary">
+                        {blog.views}
+                      </Typography>
                     </Box>
-                  )}
-                </CardContent>
-              </Card>
-            </Grid>
-            <Grid md={3} sm={4} xs={12} item>
-              <Card variant="outlined" sx={{ border: "none", borderRadius: 5 }}>
-                <CardContent>
-                  <Box>
-                    <Typography
-                      variant="h5"
-                      sx={{ color: "primary.main" }}
-                      gutterBottom
-                    >
-                      Author
-                    </Typography>
-                    <Typography color="text.secondary">
-                      {blog.author.name}
-                    </Typography>
-                  </Box>
-                  <Box>
-                    <br />
-                    <Divider sx={{ borderColor: "primary.main" }} />
-                    <br />
-                  </Box>
-                  <Box>
-                    <Typography
-                      variant="h5"
-                      sx={{ color: "primary.main" }}
-                      gutterBottom
-                    >
-                      Posted at
-                    </Typography>
-                    <Typography color="text.secondary">
-                      {formatDistanceToNow(new Date(blog.createdAt))} ago
-                    </Typography>
-                  </Box>
-                  <Box>
-                    <br />
-                    <Divider sx={{ borderColor: "primary.main" }} />
-                    <br />
-                  </Box>
-                  <Box>
-                    <Typography
-                      variant="h5"
-                      sx={{ color: "primary.main" }}
-                      gutterBottom
-                    >
-                      Total views
-                    </Typography>
-                    <Typography color="text.secondary">{blog.views}</Typography>
-                  </Box>
-                  {/* {session && (
+                    {/* {session && (
                     <Box>
                       <Box>
                         <br />
@@ -270,17 +283,18 @@ const Blog = ({ blog, error }) => {
                       </Box>
                     </Box>
                   )} */}
-                </CardContent>
-              </Card>
+                  </CardContent>
+                </Card>
+              </Grid>
             </Grid>
-          </Grid>
-        ) : (
-          <Box sx={{ textAlign: "center" }}>
-            <CircularProgress />
-          </Box>
-        )}
-      </Container>
-    </Box>
+          ) : (
+            <Box sx={{ textAlign: "center" }}>
+              <CircularProgress />
+            </Box>
+          )}
+        </Container>
+      </Box>
+    </>
   );
 };
 
