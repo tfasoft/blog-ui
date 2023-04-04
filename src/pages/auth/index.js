@@ -16,17 +16,13 @@ import API from "@/api";
 
 import { setToken } from "@/redux/actions/token";
 import { setUser } from "@/redux/actions/user";
+import { Form } from "@/components";
 import { hasAuth } from "@/middlewares";
 
 const Authentication = () => {
   const dispatch = useDispatch();
 
-  const state = useSelector((state) => state);
-
-  console.log(state);
-
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const [snackOpen, setSnackOpen] = useState(false);
   const [snackTitle, setSnackTitle] = useState("");
@@ -39,22 +35,22 @@ const Authentication = () => {
     setSnackOpen(true);
   };
 
-  const login = async () => {
-    const sendingData = {
-      username,
-      password,
-    };
+  const login = async (callback) => {
+    setLoading(true);
 
     try {
-      const data = await API.post("auth/login", sendingData);
+      const data = await API.post("auth/login", callback);
 
       const user = data.data;
 
       dispatch(setToken(user.token));
       dispatch(setUser(user.user));
+
+      setLoading(false);
     } catch (error) {
-      console.log(error);
       createSnack(error.response.data.message, "error");
+
+      setLoading(false);
     }
   };
 
@@ -85,38 +81,15 @@ const Authentication = () => {
               TFAsoft blog
             </Typography>
             <br />
-            <TextField
-              variant="outlined"
-              color="primary"
-              size="small"
-              placeholder="Enter username"
-              label="Username"
-              sx={{ mb: "1rem" }}
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              fullWidth
+            <Form
+              name="login"
+              callback={login}
+              button={loading ? "Wait" : "Login"}
+              btnStyle={{
+                fullWidth: true,
+                disabled: loading,
+              }}
             />
-            <TextField
-              variant="outlined"
-              color="primary"
-              size="small"
-              placeholder="Enter password"
-              label="Password"
-              type="password"
-              sx={{ mb: "1rem" }}
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              fullWidth
-            />
-            <Button
-              variant="contained"
-              size="large"
-              onClick={() => login()}
-              disableElevation
-              fullWidth
-            >
-              Login
-            </Button>
           </CardContent>
         </Card>
       </Container>
