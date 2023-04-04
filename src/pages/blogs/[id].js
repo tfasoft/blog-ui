@@ -1,8 +1,6 @@
-import { useState, useEffect } from "react";
-import { useParams, useHistory } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useState } from "react";
 
-import DocumentMeta from "react-document-meta";
+import API from "@/api";
 
 import { Parser } from "html-to-react";
 import { formatDistanceToNow } from "date-fns";
@@ -16,124 +14,64 @@ import {
   Grid,
   Divider,
   CircularProgress,
-  Button,
-  Alert,
-  Snackbar,
   Toolbar,
   TextField,
 } from "@mui/material";
 
-import { Delete, Edit } from "@mui/icons-material";
+export const getServerSidePaths = async () => {
+  const paths = [];
 
-import API from "../api";
+  try {
+    const data = await API.get("blogs");
 
-const BlogPage = () => {
-  const history = useHistory();
-  let { id } = useParams();
+    data.data.map((dt) => paths.push({ params: { id: dt._id } }));
+  } catch (error) {
+    console.log(error.message);
+  }
 
-  const session = useSelector((state) => state.session);
-
-  const [snackOpen, setSnackOpen] = useState(false);
-  const [snackTitle, setSnackTitle] = useState("");
-  const [snackType, setSnackType] = useState("");
-
-  const createSnack = (title, type) => {
-    setSnackTitle(title);
-    setSnackType(type);
-
-    setSnackOpen(true);
+  return {
+    paths,
+    fallback: false,
   };
+};
 
-  const [blog, setBlog] = useState(false);
+export const getServerSideProps = async ({ params }) => {
+  try {
+    const blog = await API.get(`blogs/${params.id}`);
+
+    return {
+      props: {
+        blog: blog.data,
+      },
+    };
+  } catch (error) {
+    return {
+      props: {
+        error: error.response.data,
+      },
+    };
+  }
+};
+
+const Blog = ({ blog, error }) => {
   const [editMode, setEditMode] = useState(false);
 
   const [title, setTitle] = useState("");
   const [short, setShort] = useState("");
   const [content, setContent] = useState("");
 
-  const getData = async () => {
-    try {
-      const data = await API.get(`blogs/${id}`);
+  console.log(blog, error);
 
-      const blog = data.data;
-
-      setBlog(blog);
-
-      setTitle(blog.title);
-      setShort(blog.short);
-      setContent(blog.content);
-    } catch (error) {
-      alert(error.response.data.message);
-    }
-  };
-
-  useEffect(() => {
-    getData();
-  }, []);
-
-  //   const deleteBlog = () => {
-  //     Axios.post(`${backendAPI}/blogs/delete/${id}`)
-  //       .then((result) => {
-  //         createSnack("Post deleted", "success");
-  //         history.push("/blogs");
-  //       })
-  //       .catch((error) => {
-  //         console.log(error);
-  //       });
-  //   };
-
-  //   const updateBlog = () => {
-  //     const data = {
-  //       id: id,
-  //       new: {
-  //         title,
-  //         short,
-  //         content,
-  //       },
-  //     };
-
-  //     Axios.post(`${backendAPI}/blogs/update`, data)
-  //       .then((result) => {
-  //         createSnack("Post updated", "success");
-
-  //         setEditMode(false);
-
-  //         Axios.get(`${backendAPI}/blogs/get/${id}`)
-  //           .then((result) => {
-  //             const blog = result.data.blog;
-
-  //             setBlog(blog);
-
-  //             setTitle(blog.title);
-  //             setShort(blog.short);
-  //             setContent(blog.content);
-  //           })
-  //           .catch((error) => {
-  //             console.log(error);
-  //           });
-  //       })
-  //       .catch((error) => {
-  //         console.log(error);
-  //       });
-  //   };
-
-  const meta = {
-    title: blog.title,
-    description: blog.short,
-    canonical: `https://blog.amirhossein.info/blog/${blog._id}`,
-    meta: {
-      charset: "utf-8",
-      name: {
-        keywords: "tfasoft,tfasoft blog,blog,tfa",
-      },
-    },
-    link: {
-      rel: { icon: "../assets/icons/favicon.ico" },
-    },
-  };
+  if (error) {
+    return (
+      <Box>
+        <Typography>{error.message}</Typography>
+      </Box>
+    );
+  }
 
   return (
-    <DocumentMeta {...meta}>
+    <Box>
       <Container
         sx={{
           mt: "1rem",
@@ -171,7 +109,6 @@ const BlogPage = () => {
                   {editMode ? (
                     <Box>
                       <TextField
-                        // label="Title"
                         placeholder="Change short"
                         onChange={(e) => setShort(e.target.value)}
                         value={short}
@@ -185,17 +122,6 @@ const BlogPage = () => {
                       {blog.short}
                     </Typography>
                   )}
-                  {/* <Box>
-                                            <br />
-                                            <Box
-                                                component="img"
-                                                alt="Image"
-                                                sx={{ width: "100%", borderRadius: 5 }}
-                                                src="https://images.prismic.io/www-static/3d094db1-bb3f-429d-8f13-5d16e3b39b68_Blog.png"
-                                            />
-                                            <br />
-                                            <br />
-                                        </Box> */}
                   {editMode ? (
                     <Box>
                       <TextField
@@ -230,7 +156,7 @@ const BlogPage = () => {
                       Author
                     </Typography>
                     <Typography color="text.secondary">
-                      {blog.author}
+                      {blog.author.name}
                     </Typography>
                   </Box>
                   <Box>
@@ -265,7 +191,7 @@ const BlogPage = () => {
                     </Typography>
                     <Typography color="text.secondary">{blog.views}</Typography>
                   </Box>
-                  {session && (
+                  {/* {session && (
                     <Box>
                       <Box>
                         <br />
@@ -343,7 +269,7 @@ const BlogPage = () => {
                         </Button>
                       </Box>
                     </Box>
-                  )}
+                  )} */}
                 </CardContent>
               </Card>
             </Grid>
@@ -353,19 +279,9 @@ const BlogPage = () => {
             <CircularProgress />
           </Box>
         )}
-
-        <Snackbar
-          open={snackOpen}
-          autoHideDuration={6000}
-          onClose={() => setSnackOpen(false)}
-        >
-          <Alert onClose={() => setSnackOpen(false)} severity={snackType}>
-            {snackTitle}
-          </Alert>
-        </Snackbar>
       </Container>
-    </DocumentMeta>
+    </Box>
   );
 };
 
-export default BlogPage;
+export default Blog;
