@@ -13,6 +13,26 @@ const forms = {
       secure: true,
     },
   },
+  newBlog: {
+    title: {
+      type: "text",
+      label: "Title",
+      placeholder: "Enter title",
+      secure: false,
+    },
+    short: {
+      type: "text",
+      label: "Short description",
+      placeholder: "Enter short",
+      secure: false,
+    },
+    content: {
+      type: "textarea",
+      label: "content",
+      placeholder: "Enter HTML",
+      secure: false,
+    },
+  },
 };
 
 export default forms;
