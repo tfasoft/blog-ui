@@ -61,7 +61,7 @@ const Blogs = ({ blogs, error }) => {
               <Typography
                 variant="h2"
                 fontWeight="bold"
-                color="primary"
+                color="white"
                 gutterBottom
               >
                 Featured posts

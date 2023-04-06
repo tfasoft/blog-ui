@@ -1,28 +1,14 @@
 import { useState, useEffect } from "react";
-import { useRouter } from "next/router";
 
-import {
-  Container,
-  Box,
-  Typography,
-  Grid,
-  CircularProgress,
-  IconButton,
-  Alert,
-  Snackbar,
-  Toolbar,
-} from "@mui/material";
+import { Container, Box, Grid, Alert, Snackbar, Toolbar } from "@mui/material";
 
-import { Delete } from "@mui/icons-material";
-
-import API from "@/api";
-import { Table } from "@/components";
 import { withAuth } from "@/middlewares";
+import { Table } from "@/components";
+import API from "@/api";
+
 import Head from "next/head";
 
 const Panel = () => {
-  const history = useRouter();
-
   const [snackOpen, setSnackOpen] = useState(false);
   const [snackTitle, setSnackTitle] = useState("");
   const [snackType, setSnackType] = useState("");

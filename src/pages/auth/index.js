@@ -77,15 +77,6 @@ const Authentication = () => {
             sx={{ border: "none", borderRadius: 1 }}
           >
             <CardContent>
-              <Typography
-                variant="h4"
-                color="primary.main"
-                fontWeight="bold"
-                gutterBottom
-              >
-                TFAsoft blog
-              </Typography>
-              <br />
               <Form
                 name="login"
                 callback={login}
