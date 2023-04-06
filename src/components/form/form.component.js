@@ -17,7 +17,7 @@ import {
 
 import { forms } from "@/config";
 
-const FormsComponent = ({ name, button, btnStyle, def, callback }) => {
+const FormsComponent = ({ name, button, btnStyle, def, callback, change }) => {
   const { register, handleSubmit } = useForm({
     defaultValues: def,
   });
@@ -107,7 +107,9 @@ const FormsComponent = ({ name, button, btnStyle, def, callback }) => {
             return (
               <TextField
                 key={name}
-                {...register(name)}
+                {...register(name, {
+                  onChange: (e) => change(e.target.value),
+                })}
                 label={field.label}
                 type={field.secure ? "password" : field.type}
                 placeholder={field.placeholder}

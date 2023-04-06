@@ -20,8 +20,6 @@ import { useEffect, useState } from "react";
 const TableComponent = ({ table, data, del, upd }) => {
   const tbl = tables[table];
 
-  console.log(tbl);
-
   const [page, setPage] = useState(1);
   const [rowsPerPage, setRowPerPage] = useState(10);
 

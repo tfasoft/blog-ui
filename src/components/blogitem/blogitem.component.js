@@ -18,10 +18,10 @@ const BlogItem = (props) => {
   return (
     <Card
       variant="elevation"
-      elevation={21}
+      elevation={20}
       sx={{
         border: "none",
-        borderRadius: 5,
+        borderRadius: 1,
       }}
     >
       <CardMedia

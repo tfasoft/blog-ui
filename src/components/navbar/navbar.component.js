@@ -91,6 +91,12 @@ const Navbar = () => {
               </ListItemIcon>
               <ListItemText primary="Panel" />
             </ListItemButton>
+            <ListItemButton onClick={() => router.push("/blogs/new")}>
+              <ListItemIcon sx={{ color: "primary.main" }}>
+                <Dashboard />
+              </ListItemIcon>
+              <ListItemText primary="New blog" />
+            </ListItemButton>
           </ListItem>
         )}
         <ListItem disablePadding>
