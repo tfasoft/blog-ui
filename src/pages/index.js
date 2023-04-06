@@ -44,7 +44,7 @@ export default function Home() {
                   </Typography>
                   <Typography color="white" paragraph gutterBottom>
                     If you are following TFASoft service or you are on of out
-                    costumers, you don't like to miss any news, change log, new
+                    costumers, you dont like to miss any news, change log, new
                     version and things like this!
                   </Typography>
                   <br />
