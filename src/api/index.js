@@ -3,7 +3,7 @@ import axios from "axios";
 import { apiConfig } from "@/config";
 
 const API = axios.create({
-  baseURL: apiConfig.endpoint,
+  baseURL: process.env["API_URL"],
 });
 
 export default API;

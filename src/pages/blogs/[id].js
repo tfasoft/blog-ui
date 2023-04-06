@@ -100,7 +100,11 @@ const Blog = ({ blog, error }) => {
               <Grid md={3} sm={4} xs={12} item>
                 <Card
                   variant="outlined"
-                  sx={{ border: "none", borderRadius: 1 }}
+                  sx={{
+                    border: "none",
+                    borderRadius: 1,
+                    backgroundColor: "transparent",
+                  }}
                 >
                   <CardContent>
                     <Box>

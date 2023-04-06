@@ -1,23 +1,15 @@
 import { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 
-import {
-  Container,
-  Typography,
-  Card,
-  CardContent,
-  TextField,
-  Button,
-  Snackbar,
-  Alert,
-} from "@mui/material";
+import { Container, Card, CardContent, Snackbar, Alert } from "@mui/material";
 
 import API from "@/api";
 
 import { setToken } from "@/redux/actions/token";
 import { setUser } from "@/redux/actions/user";
-import { Form } from "@/components";
 import { hasAuth } from "@/middlewares";
+import { Form } from "@/components";
+
 import Head from "next/head";
 
 const Authentication = () => {
@@ -40,15 +32,16 @@ const Authentication = () => {
     setLoading(true);
 
     try {
-      const data = await API.post("auth/login", callback);
+      const { data } = await API.post("auth/login", callback);
 
-      const user = data.data;
+      const user = data;
 
       dispatch(setToken(user.token));
       dispatch(setUser(user.user));
 
       setLoading(false);
     } catch (error) {
+      console.log(error);
       createSnack(error.response.data.message, "error");
 
       setLoading(false);
