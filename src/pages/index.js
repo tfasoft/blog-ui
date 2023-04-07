@@ -5,6 +5,7 @@ import {
   Toolbar,
   Grid,
   Button,
+  colors,
 } from "@mui/material";
 
 import Head from "next/head";
@@ -26,7 +27,9 @@ export default function Home() {
             display: "flex",
             alignItems: "center",
             height: "100vh",
-            background: `linear-gradient(to bottom right, ${"#071e4e"} 50%, ${"#aaa"} 50%)`,
+            background: `linear-gradient(to bottom right, ${
+              colors.blue[600]
+            } 50%, ${"#f1f1f1"} 50%)`,
           }}
         >
           <Toolbar />
@@ -49,8 +52,12 @@ export default function Home() {
                   </Typography>
                   <br />
                   <Button
-                    variant="contained"
+                    variant="outlined"
                     color="inherit"
+                    size="large"
+                    sx={{
+                      color: "white",
+                    }}
                     onClick={() => history.push("/blogs")}
                     disableElevation
                   >

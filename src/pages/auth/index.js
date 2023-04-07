@@ -1,7 +1,14 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 
-import { Container, Card, CardContent, Snackbar, Alert } from "@mui/material";
+import {
+  Container,
+  Card,
+  CardContent,
+  Snackbar,
+  Alert,
+  colors,
+} from "@mui/material";
 
 import API from "@/api";
 
@@ -60,7 +67,7 @@ const Authentication = () => {
           justifyContent: "center",
           alignItems: "center",
           height: "100vh",
-          background: `linear-gradient(to bottom, ${"#071e4e"} 50%, #f8f4fc 50%)`,
+          background: `linear-gradient(to bottom, ${colors.blue[600]} 50%, #f1f1f1 50%)`,
         }}
       >
         <Container maxWidth="xs">

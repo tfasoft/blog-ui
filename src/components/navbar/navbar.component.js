@@ -28,6 +28,7 @@ import {
   MenuBook,
   Biotech,
   RssFeed,
+  Create,
 } from "@mui/icons-material";
 
 import { unsetUser } from "@/redux/actions/user";
@@ -84,20 +85,24 @@ const Navbar = () => {
       <Divider />
       <List>
         {session && (
-          <ListItem disablePadding>
-            <ListItemButton onClick={() => router.push("/panel")}>
-              <ListItemIcon sx={{ color: "primary.main" }}>
-                <Dashboard />
-              </ListItemIcon>
-              <ListItemText primary="Panel" />
-            </ListItemButton>
-            <ListItemButton onClick={() => router.push("/blogs/new")}>
-              <ListItemIcon sx={{ color: "primary.main" }}>
-                <Dashboard />
-              </ListItemIcon>
-              <ListItemText primary="New blog" />
-            </ListItemButton>
-          </ListItem>
+          <Box>
+            <ListItem disablePadding>
+              <ListItemButton onClick={() => router.push("/panel")}>
+                <ListItemIcon sx={{ color: "primary.main" }}>
+                  <Dashboard />
+                </ListItemIcon>
+                <ListItemText primary="Panel" />
+              </ListItemButton>
+            </ListItem>
+            <ListItem disablePadding>
+              <ListItemButton onClick={() => router.push("/blogs/new")}>
+                <ListItemIcon sx={{ color: "primary.main" }}>
+                  <Create />
+                </ListItemIcon>
+                <ListItemText primary="New blog" />
+              </ListItemButton>
+            </ListItem>
+          </Box>
         )}
         <ListItem disablePadding>
           <ListItemButton onClick={() => router.push("/blogs")}>
@@ -184,6 +189,17 @@ const Navbar = () => {
                   }}
                 >
                   Panel
+                </Button>
+              )}
+              {session && (
+                <Button
+                  variant="text"
+                  onClick={() => router.push("/blogs/new")}
+                  sx={{
+                    color: "white",
+                  }}
+                >
+                  New Blog
                 </Button>
               )}
               <Button

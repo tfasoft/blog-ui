@@ -5,6 +5,7 @@ import {
   Box,
   Typography,
   Toolbar,
+  colors,
 } from "@mui/material";
 
 import API from "@/api";
@@ -48,7 +49,9 @@ const Blogs = ({ blogs, error }) => {
           maxWidth="xl"
           sx={{
             mb: "5rem",
-            background: `linear-gradient(to bottom, ${"#071e4e"} 60%, ${"#f8f4fc"} 40%)`,
+            background: `linear-gradient(to bottom, ${
+              colors.blue[600]
+            } 60%, ${"#f1f1f1"} 40%)`,
           }}
         >
           <Toolbar />
