@@ -48,7 +48,7 @@ const Panel = () => {
   }, []);
 
   return (
-    <>
+    <withAuth>
       <Head>
         <title>Panel | TFAsoft</title>
       </Head>
@@ -78,8 +78,8 @@ const Panel = () => {
           </Snackbar>
         </Container>
       </Box>
-    </>
+    </withAuth>
   );
 };
 
-export default withAuth(Panel);
+export default Panel;

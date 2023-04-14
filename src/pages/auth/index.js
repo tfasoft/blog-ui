@@ -56,7 +56,7 @@ const Authentication = () => {
   };
 
   return (
-    <>
+    <hasAuth>
       <Head>
         <title>Login | TFAsoft</title>
       </Head>
@@ -100,8 +100,8 @@ const Authentication = () => {
           </Alert>
         </Snackbar>
       </Container>
-    </>
+    </hasAuth>
   );
 };
 
-export default hasAuth(Authentication);
+export default Authentication;
