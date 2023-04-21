@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 import {
   Container,
@@ -14,15 +14,22 @@ import API from "@/api";
 
 import { setToken } from "@/redux/actions/token";
 import { setUser } from "@/redux/actions/user";
-import { hasAuth } from "@/middlewares";
 import { Form } from "@/components";
 
 import Head from "next/head";
+import { useRouter } from "next/router";
 
 const Authentication = () => {
   const dispatch = useDispatch();
+  const history = useRouter();
 
   const [loading, setLoading] = useState(false);
+
+  const { token } = useSelector((state) => state);
+
+  useEffect(() => {
+    if (token) history.push("/panel");
+  }, [token]);
 
   const [snackOpen, setSnackOpen] = useState(false);
   const [snackTitle, setSnackTitle] = useState("");
@@ -56,7 +63,7 @@ const Authentication = () => {
   };
 
   return (
-    <hasAuth>
+    <>
       <Head>
         <title>Login | TFAsoft</title>
       </Head>
@@ -100,7 +107,7 @@ const Authentication = () => {
           </Alert>
         </Snackbar>
       </Container>
-    </hasAuth>
+    </>
   );
 };
 

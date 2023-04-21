@@ -1,6 +1,6 @@
 import API from "@/api";
 
-import { Parser } from "html-to-react";
+import ReactMarkdown from "react-markdown";
 import { formatDistanceToNow } from "date-fns";
 
 import {
@@ -92,7 +92,7 @@ const Blog = ({ blog, error }) => {
                       {blog.short}
                     </Typography>
                     <Box color="text.secondary">
-                      {Parser().parse(blog.content)}
+                      <ReactMarkdown>{blog.content}</ReactMarkdown>
                     </Box>
                   </CardContent>
                 </Card>

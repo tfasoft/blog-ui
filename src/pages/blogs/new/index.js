@@ -8,7 +8,7 @@ import {
   Card,
 } from "@mui/material";
 
-import { Parser } from "html-to-react";
+import ReactMarkdown from "react-markdown";
 
 import Head from "next/head";
 import { useRouter } from "next/router";
@@ -64,9 +64,7 @@ const New = () => {
                 sx={{ mt: "1rem", border: "none", borderRadius: 5 }}
               >
                 <CardContent>
-                  <Typography>
-                    <Box color="text.secondary">{Parser().parse(content)}</Box>
-                  </Typography>
+                  <ReactMarkdown>{content}</ReactMarkdown>
                 </CardContent>
               </Card>
             </Grid>

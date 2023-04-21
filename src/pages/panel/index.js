@@ -1,14 +1,17 @@
 import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 
 import { Container, Box, Grid, Alert, Snackbar, Toolbar } from "@mui/material";
 
-import { withAuth } from "@/middlewares";
 import { Table } from "@/components";
 import API from "@/api";
 
 import Head from "next/head";
+import { useRouter } from "next/router";
 
 const Panel = () => {
+  const history = useRouter();
+
   const [snackOpen, setSnackOpen] = useState(false);
   const [snackTitle, setSnackTitle] = useState("");
   const [snackType, setSnackType] = useState("");
@@ -43,12 +46,18 @@ const Panel = () => {
     }
   };
 
+  const { token } = useSelector((state) => state);
+
+  useEffect(() => {
+    if (!token) history.push("/auth");
+  }, [token]);
+
   useEffect(() => {
     getBlogs();
   }, []);
 
   return (
-    <withAuth>
+    <>
       <Head>
         <title>Panel | TFAsoft</title>
       </Head>
@@ -78,7 +87,7 @@ const Panel = () => {
           </Snackbar>
         </Container>
       </Box>
-    </withAuth>
+    </>
   );
 };
 
