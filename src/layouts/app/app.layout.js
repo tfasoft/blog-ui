@@ -1,17 +1,34 @@
-import { Box } from "@mui/material";
+import { Container } from "@mui/material";
 
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
+import { setUser } from "@/redux/actions/user";
 import API from "@/api";
+import { useEffect } from "react";
 
 const AppLayout = ({ children }) => {
-  const token = useSelector((state) => state.token);
+  const { token, user } = useSelector((state) => state);
 
-  if (token) {
-    API.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-  }
+  const dispatch = useDispatch();
 
-  return <Box>{children}</Box>;
+  const getData = async () => {
+    try {
+      const data = await API.get(`users/${user._id}`);
+
+      dispatch(setUser(data.data));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    if (token) {
+      API.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+      getData();
+    }
+  }, []);
+
+  return <Container>{children}</Container>;
 };
 
 export default AppLayout;
