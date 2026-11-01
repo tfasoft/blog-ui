@@ -1,7 +1,12 @@
-# TFASoft Blog | UI
+# TFASoft Blog | Frontend
 
-**TFA Blog** is a **MERN** application. This is the Front-End part of it.
-
-## Back-End
-
-Back-End is available [here](https://github.com/tfasoft/blog-api).
+> [!IMPORTANT]
+> **Repository Migration**
+>
+> This repository has moved to GitLab.
+>
+> All active development and maintenance now take place at:
+>
+> **[View the repository on GitLab](https://gitlab.com/tfasoft/blog/frontend)**
+>
+> This GitHub repository is retained for historical reference. Please use the GitLab repository for the latest updates, issues, and contributions.
